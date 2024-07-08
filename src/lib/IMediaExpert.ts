@@ -6,5 +6,5 @@ export interface IMediaExpert {
   specialization: string;
   experience: number;
   interests: string[];
-  participateProgram(program: ITrainingProgram): void;
+  joinProgram(program: ITrainingProgram): void;
 }
