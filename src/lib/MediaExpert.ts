@@ -10,7 +10,7 @@ export class MediaExpert implements IMediaExpert {
     public interests: string[]
   ) {}
 
-  participateProgram(program: ITrainingProgram): void {
+  joinProgram(program: ITrainingProgram): void {
     console.log(`${this.firstName} is participating in the program ${program.title}`);
   }
 }
