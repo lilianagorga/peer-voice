@@ -1,6 +1,6 @@
 import { IMediaExpert } from "./IMediaExpert";
 
-export interface ITrainingProgram {
+export interface ICourse {
   title: string;
   description: string;
   specializationField: string;

@@ -1,7 +1,7 @@
-import { ITrainingProgram } from './ITrainingProgram';
+import { ICourse } from "./ICourse";
 import { IMediaExpert } from './IMediaExpert';
 
-export class TrainingProgram implements ITrainingProgram {
+export class CourseClass implements ICourse {
   participants: IMediaExpert[] = [];
 
   constructor(
@@ -13,6 +13,6 @@ export class TrainingProgram implements ITrainingProgram {
 
   addParticipant(person: IMediaExpert): void {
     this.participants.push(person);
-    console.log(`${person.firstName} has been added to the program ${this.title}`);
+    console.log(`${person.firstName} has been added to the course ${this.title}`);
   }
 }

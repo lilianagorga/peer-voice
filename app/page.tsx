@@ -1,8 +1,8 @@
 "use client";
-import MediaExpertComponent from "../components/MediaExpertComponent";
-import { MediaExpert } from "../lib/MediaExpert";
+import MediaExpert from "../components/MediaExpert";
+import { MediaExpertClass } from "../lib/MediaExpertClass";
 
-const expert1 = new MediaExpert(
+const expert1 = new MediaExpertClass(
   "Anna",
   "Rossi",
   "Journalism",
@@ -10,7 +10,7 @@ const expert1 = new MediaExpert(
   ["Writing", "Reporting", "Interviews"]
 );
 
-const expert2 = new MediaExpert(
+const expert2 = new MediaExpertClass(
   "Maria",
   "Bianchi",
   "Production",
@@ -39,10 +39,10 @@ export default function Home() {
     <>
       <main className="flex min-h-screen flex-col items-center justify-center p-8">
         <h1 className="text-4xl font-bold mb-8">Welcome to the Media Experts Platform</h1>
-        <p className="mb-8 text-center">This platform allows media experts to enroll in training programs and publish content promoting gender equality.</p>
+        <p className="mb-8 text-center">This platform allows media experts to enroll in courses and publish content promoting gender equality.</p>
         <div className="grid gap-8 lg:grid-cols-2 md:grid-cols-1">
-          <MediaExpertComponent person={expert1Data} />
-          <MediaExpertComponent person={expert2Data} />
+          <MediaExpert person={expert1Data} />
+          <MediaExpert person={expert2Data} />
         </div>
       </main>
     </>

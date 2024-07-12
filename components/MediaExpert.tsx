@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-const MediaExpertComponent: React.FC<{ person: { firstName: string, lastName: string, specialization: string, experience: number, interests: string[] } }> = ({ person }) => {
+const MediaExpert: React.FC<{ person: { firstName: string, lastName: string, specialization: string, experience: number, interests: string[] } }> = ({ person }) => {
   return (
     <div className="card">
       <h2>{person.firstName} {person.lastName}</h2>
@@ -13,4 +13,4 @@ const MediaExpertComponent: React.FC<{ person: { firstName: string, lastName: st
   );
 };
 
-export default MediaExpertComponent;
+export default MediaExpert;

@@ -1,7 +1,7 @@
 import { IPlatform } from './IPlatform';
 import { IMediaExpert } from './IMediaExpert';
 
-export class Platform implements IPlatform {
+export class PlatformClass implements IPlatform {
   constructor(
     public name: string,
     public type: string,
