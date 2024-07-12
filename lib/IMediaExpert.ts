@@ -1,4 +1,4 @@
-import { ITrainingProgram } from "./ITrainingProgram";
+import { ICourse } from "./ICourse";
 
 export interface IMediaExpert {
   firstName: string;
@@ -6,5 +6,5 @@ export interface IMediaExpert {
   specialization: string;
   experience: number;
   interests: string[];
-  joinProgram(program: ITrainingProgram): void;
+  joinCourse(course: ICourse): void;
 }

@@ -9,7 +9,7 @@ const Navbar: React.FC = () => {
     <nav className="p-4 bg-blue-500 text-white">
       <ul className="flex space-x-4">
         <li><Link href="/">Home</Link></li>
-        <li><Link href="/trainingPrograms">Training Programs</Link></li>
+        <li><Link href="/courses">Courses</Link></li>
         <li><Link href="/contents">Contents</Link></li>
         {!session ? (
           <li><Link href="/auth">Login</Link></li>

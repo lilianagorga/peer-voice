@@ -2,10 +2,9 @@
 
 import React from 'react';
 
-const PlatformComponent: React.FC<{ platform: { name: string, type: string, description: string, contentCategories: string[] } }> = ({ platform }) => {
+const Platform: React.FC<{ platform: { name: string, type: string, description: string, contentCategories: string[] } }> = ({ platform }) => {
   const handlePublishContent = () => {
     console.log(`Publishing content on: ${platform.name}`);
-    // Aggiungi qui la logica per pubblicare il contenuto
   };
 
   return (
@@ -19,4 +18,4 @@ const PlatformComponent: React.FC<{ platform: { name: string, type: string, desc
   );
 };
 
-export default PlatformComponent;
+export default Platform;
