@@ -1,14 +1,14 @@
 "use client";
 
 import React from 'react';
+import { IMediaExpert } from '../types/appwrite.types';
 
-const MediaExpert: React.FC<{ person: { firstName: string, lastName: string, specialization: string, experience: number, interests: string[] } }> = ({ person }) => {
+const MediaExpert: React.FC<{ person: IMediaExpert }> = ({ person }) => {
   return (
     <div className="card">
-      <h2>{person.firstName} {person.lastName}</h2>
+      <h2>{person.name}</h2>
       <p>Specialization: {person.specialization}</p>
-      <p>Experience: {person.experience} years</p>
-      <p>Interests: {person.interests.join(', ')}</p>
+      <p>Interests: {person.interests?.join(', ')}</p>
     </div>
   );
 };
