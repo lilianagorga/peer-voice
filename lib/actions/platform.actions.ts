@@ -3,6 +3,7 @@
 import { ID } from "node-appwrite";
 import { DATABASE_ID, PLATFORM_COLLECTION_ID, databases } from "../appwrite.config";
 import { IPlatform, IMediaExpert } from "../../types/appwrite.types";
+import { parseStringify } from "../utils";
 
 export const createPlatform = async (platform: ICreatePlatformParams, userId: string) => {
   try {
@@ -12,7 +13,7 @@ export const createPlatform = async (platform: ICreatePlatformParams, userId: st
       ID.unique(),
       { ...platform, userId },
     );
-    return newPlatform;
+    return parseStringify(newPlatform);
   } catch (error) {
     console.error("An error occurred while creating platform:", error);
   }
@@ -25,7 +26,7 @@ export const getPlatform = async (platformId: string): Promise<IPlatform | null>
       PLATFORM_COLLECTION_ID!,
       platformId
     ) as unknown as IPlatform;
-    return platform;
+    return parseStringify(platform);
   } catch (error) {
     console.error("An error occurred while retrieving the platform:", error);
     return null;
@@ -40,7 +41,7 @@ export const updatePlatform = async (platformId: string, updatedData: any): Prom
       platformId,
       updatedData
     ) as unknown as IPlatform;
-    return updatedPlatform;
+    return parseStringify(updatedPlatform);
   } catch (error) {
     console.error("An error occurred while updating the platform:", error);
     return null;

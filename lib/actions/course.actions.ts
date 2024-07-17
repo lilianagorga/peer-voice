@@ -2,6 +2,7 @@
 
 import { ID } from "node-appwrite";
 import { DATABASE_ID, COURSE_COLLECTION_ID, databases } from "../appwrite.config";
+import { parseStringify } from "../utils";
 
 export const createCourse = async (course: ICreateCourseParams, userId: string) => {
   try {
@@ -11,7 +12,7 @@ export const createCourse = async (course: ICreateCourseParams, userId: string) 
       ID.unique(),
       { ...course, userId },
     );
-    return newCourse;
+    return parseStringify(newCourse);
   } catch (error) {
     console.error("An error occurred while creating course:", error);
   }
@@ -24,7 +25,7 @@ export const getCourse = async (courseId: string): Promise<ICourse | null> => {
       COURSE_COLLECTION_ID!,
       courseId
     ) as unknown as ICourse;
-    return course;
+    return parseStringify(course);
   } catch (error) {
     console.error("An error occurred while retrieving the course:", error);
     return null;
@@ -39,7 +40,7 @@ export const updateCourse = async (courseId: string, updatedData: any): Promise<
       courseId,
       updatedData
     ) as unknown as ICourse;
-    return updatedCourse;
+    return parseStringify(updatedCourse);
   } catch (error) {
     console.error("An error occurred while updating the course:", error);
     return null;
