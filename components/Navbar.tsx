@@ -1,21 +1,14 @@
 "use client";
 
 import Link from 'next/link';
-import { signOut, useSession } from 'next-auth/react';
 
 const Navbar: React.FC = () => {
-  const { data: session } = useSession();
   return (
     <nav className="p-4 bg-blue-500 text-white">
       <ul className="flex space-x-4">
         <li><Link href="/">Home</Link></li>
         <li><Link href="/courses">Courses</Link></li>
-        <li><Link href="/contents">Contents</Link></li>
-        {!session ? (
-          <li><Link href="/auth">Login</Link></li>
-        ) : (
-          <li><button onClick={() => signOut()}>Logout</button></li>
-        )}
+        <li><Link href="/mediaExperts">Media Experts</Link></li>
       </ul>
     </nav>
   );
