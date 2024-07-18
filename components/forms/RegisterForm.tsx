@@ -8,7 +8,6 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Form, FormControl } from "../ui/form";
-import { Label } from "../ui/label";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { SelectItem } from "../ui/select";
 import { MediaExpertFormDefaultValues, IdentificationTypes, } from "../../constants";
@@ -189,7 +188,15 @@ const RegisterForm = ({ user }: { user: User }) => {
             label="Scanned Copy of Identification Document"
             renderSkeleton={(field) => (
               <FormControl>
-                <FileUploader files={field.value} onChange={field.onChange} />
+                <FileUploader
+                  files={field.value}
+                  onChange={field.onChange}
+                  accept={{
+                    'image/jpeg': ['.jpeg', '.jpg'],
+                    'image/png': ['.png'],
+                    'image/gif': ['.gif']
+                  }}
+                />
               </FormControl>
             )}
           />

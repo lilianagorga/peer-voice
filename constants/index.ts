@@ -1,4 +1,4 @@
-import { joinTeam } from "../types/appwrite.types";
+import { joinTeam, Type } from "../types/appwrite.types";
 
 export const MediaExpertFormDefaultValues = {
   name: "",
@@ -26,6 +26,24 @@ export const IdentificationTypes = [
   "Student ID Card",
   "Voter ID Card",
 ];
+
+export const PlatformFormDefaultValues = {
+  name: "",
+  description: "",
+  content_categories: [],
+  type: Type.Print,
+  contentType: "test",
+  contentNumber: "",
+  content: [],
+}
+
+export const ContentTypes = [
+  "test",
+  "test1",
+  "test2",
+  "test3",
+];
+
 export const StatusIcon = {
   scheduled: "/assets/icons/check.svg",
   pending: "/assets/icons/pending.svg",

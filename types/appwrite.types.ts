@@ -36,6 +36,7 @@ export interface IPlatform extends Models.Document {
   description?: string;
   content_categories: string[];
   media_expert?: IMediaExpert;
+  content: FormData | undefined;
   publishContent(person: IMediaExpert, content: string): void;
 }
 

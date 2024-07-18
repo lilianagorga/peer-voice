@@ -1,63 +1,91 @@
 "use client";
 
-import React from 'react';
-import { IPlatform, IMediaExpert, ICourse, Status, joinTeam } from '../types/appwrite.types';
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { getPlatforms, publishContent } from "../lib/actions/platform.actions";
+import { getMediaExperts } from "../lib/actions/media_expert.actions";
+import { FileUploader } from "./FileUploader";
 
-const Platform: React.FC<{ platform: IPlatform }> = ({ platform }) => {
-  const handlePublishContent = () => {
-    const person: IMediaExpert = {
-      $id: "example-id",
-      $collectionId: "collection-id",
-      $databaseId: "database-id",
-      $createdAt: new Date().toISOString(),
-      $updatedAt: new Date().toISOString(),
-      $permissions: [],
-      name: "Example Name",
-      email: "example@example.com",
-      phone: "1234567890",
-      bio: "Example bio",
-      identificationDocument: undefined,
-      userId: "user-id",
-      specialization: "Example specialization",
-      interests: ["interest1", "interest2"],
-      course: [],
-      joinTeam: joinTeam.No,
-      joinCourse: (course: ICourse) => {
-        console.log(`Joining course: ${course.title}`);
-      },
+const Platform = ({ userId }: { userId: string }) => {
+  const router = useRouter();
+  const [platforms, setPlatforms] = useState<IPlatform[]>([]);
+  const [mediaExperts, setMediaExperts] = useState<IMediaExpert[]>([]);
+  const [platformId, setPlatformId] = useState<string>("");
+  const [selectedMediaExpert, setSelectedMediaExpert] = useState<string>("");
+  const [content, setContent] = useState<File[]>([]);
+
+  useEffect(() => {
+    const fetchPlatformsAndMediaExperts = async () => {
+      const platformsList = await getPlatforms();
+      const mediaExpertsList = await getMediaExperts();
+      setPlatforms(platformsList);
+      setMediaExperts(mediaExpertsList);
     };
+    fetchPlatformsAndMediaExperts();
+  }, []);
 
-    const course: ICourse = {
-      $id: "course-id",
-      userId: "user-id",
-      $collectionId: "collection-id",
-      $databaseId: "database-id",
-      $createdAt: new Date().toISOString(),
-      $updatedAt: new Date().toISOString(),
-      $permissions: [],
-      title: "Example Course",
-      description: "Course Description",
-      status: Status.Pending,
-      course_area: "Course Area",
-      duration: 10,
-      media_expert: [],
-      addParticipant: (person: IMediaExpert) => {
-        console.log(`${person.name} has been added to the course ${course.title}`);
-      },
-    };
+  const handlePublishContent = async () => {
+    if (!platformId || !selectedMediaExpert || content.length === 0) {
+      alert("Please select a platform, a media expert, and upload content");
+      return;
+    }
 
-    const content = "Content text";
-    platform.publishContent(person, content);
-    console.log(`Publishing content on: ${platform.name}`);
-    person.joinCourse(course);
+    try {
+      const formData = new FormData();
+      formData.append("blobFile", content[0]);
+      formData.append("fileName", content[0].name);
+
+      const result = await publishContent(platformId, selectedMediaExpert, formData);
+
+      if (result) {
+        router.push(`/mediaExperts/${userId}/platforms/${platformId}/publishContent?mediaExpertId=${selectedMediaExpert}`);
+      } else {
+        alert("Failed to publish content");
+      }
+    } catch (error) {
+      console.error("Error publishing content:", error);
+      alert("An error occurred while publishing the content");
+    }
   };
 
   return (
-    <div className="card">
-      <h2>{platform.name}</h2>
-      <p>Type: {platform.type}</p>
-      <p>Description: {platform.description}</p>
-      <p>Content Categories: {platform.content_categories.join(', ')}</p>
+    <div>
+      <h1>Platforms</h1>
+      <select
+        value={platformId}
+        onChange={(e) => setPlatformId(e.target.value)}
+      >
+        <option value="">Select Platform</option>
+        {platforms.map((platform) => (
+          <option key={platform.$id} value={platform.$id}>
+            {platform.name}
+          </option>
+        ))}
+      </select>
+
+      <h2>Select Media Expert</h2>
+      <select
+        value={selectedMediaExpert}
+        onChange={(e) => setSelectedMediaExpert(e.target.value)}
+      >
+        <option value="">Select Media Expert</option>
+        {mediaExperts.map((expert) => (
+          <option key={expert.$id} value={expert.$id}>
+            {expert.name}
+          </option>
+        ))}
+      </select>
+
+      <h2>Upload Content</h2>
+      <FileUploader
+        files={content}
+        onChange={setContent}
+        accept={{
+          "application/pdf": [".pdf"],
+          "application/zip": [".zip"],
+        }}
+      />
+
       <button onClick={handlePublishContent}>Publish Content</button>
     </div>
   );

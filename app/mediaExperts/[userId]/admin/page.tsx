@@ -1,4 +1,7 @@
-const AdminPage = async () => {
+import PlatformForm from "../../../../components/forms/PlatformForm";
+import JoinCourse from "../../../../components/JoinCourse";
+
+const AdminPage = async ({ params: { userId } }: SearchParamProps) => {
 
   return (
     <div className="mx-auto flex max-w-7xl flex-col space-y-14">
@@ -12,6 +15,12 @@ const AdminPage = async () => {
           <p className="text-dark-700">
             Start the day with managing your content and join new courses
           </p>
+        </section>
+        <section className="w-full space-y-4">
+          <JoinCourse userId={userId} />
+        </section>
+        <section className="w-full space-y-4">
+        <PlatformForm userId={userId} />
         </section>
       </main>
     </div>
