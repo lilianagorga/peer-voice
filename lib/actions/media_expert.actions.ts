@@ -40,12 +40,17 @@ export const getUser = async (userId: string) => {
   try {
     const user = await users.get(userId);
 
+    if (!user) {
+      throw new Error("User not found");
+    }
+
     return parseStringify(user);
   } catch (error) {
     console.error(
       "An error occurred while retrieving the user details:",
       error
     );
+    return null;
   }
 };
 
@@ -94,11 +99,31 @@ export const getMediaExpert = async (userId: string) => {
       [Query.equal("userId", [userId])]
     );
 
+    
+    if (!mediaExpert.documents.length) {
+      console.warn("No media expert found for userId:", userId);
+      return null;
+    }
     return parseStringify(mediaExpert.documents[0]);
   } catch (error) {
     console.error(
       "An error occurred while retrieving the media expert details:",
       error
     );
+    return null;
+  }
+};
+
+export const getMediaExperts = async (): Promise<IMediaExpert[]> => {
+  try {
+    const response = await databases.listDocuments(
+      DATABASE_ID!,
+      MEDIA_EXPERT_COLLECTION_ID!,
+      []
+    );
+    return parseStringify(response.documents);
+  } catch (error) {
+    console.error("An error occurred while retrieving media experts:", error);
+    return [];
   }
 };

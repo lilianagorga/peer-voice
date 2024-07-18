@@ -6,13 +6,13 @@ export interface IMediaExpert extends Models.Document {
   name: string;
   email: string;
   phone: string;
-  password: string;
   identificationDocument: FormData | undefined;
   interests?: string[];
   bio?: string;
   specialization?: string;
   course?: ICourse[];
   platform?: IPlatform[];
+  joinTeam: joinTeam; 
   joinCourse(course: ICourse): void;
 }
 
@@ -37,6 +37,11 @@ export interface IPlatform extends Models.Document {
   content_categories: string[];
   media_expert?: IMediaExpert;
   publishContent(person: IMediaExpert, content: string): void;
+}
+
+export enum joinTeam {
+  Yes = "yes",
+  No = "no",
 }
 
 export enum Type {

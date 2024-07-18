@@ -1,14 +1,16 @@
+import { joinTeam } from "../types/appwrite.types";
+
 export const MediaExpertFormDefaultValues = {
   name: "",
   email: "",
   phone: "",
-  password: "",
   interests: [],
   bio: "",
   specialization: "",
   identificationType: "Birth Certificate",
   identificationNumber: "",
   identificationDocument: [],
+  joinTeam: joinTeam.No, 
 }
 
 export const IdentificationTypes = [
