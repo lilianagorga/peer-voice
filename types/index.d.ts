@@ -56,15 +56,16 @@ declare interface ICourse extends ICreateCourseParams {
 }
 
 declare interface ICreatePlatformParams {
+  userId: string,
   name: string;
   type: Type;
   description?: string;
   content_categories: string[];
   media_expert?: IMediaExpert;
+  content: FormData | undefined;
 }
 
 declare interface IPlatform extends ICreatePlatformParams {
   $id: string;
-  userId: string,
   publishContent(person: IMediaExpert, content: string): void;
 }

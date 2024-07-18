@@ -41,6 +41,7 @@ interface CustomProps {
   children?: React.ReactNode;
   renderSkeleton?: (field: any) => React.ReactNode;
   fieldType: FormFieldType;
+  onChange?: (e: any) => void;
 }
 
 const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {

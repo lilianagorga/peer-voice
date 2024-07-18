@@ -14,6 +14,7 @@ export class PlatformClass implements IPlatform {
     public description: string,
     public content_categories: string[],
     public userId: string,
+    public content: FormData | undefined,
   ) {
     this.$id = "";
     this.$collectionId = "";

@@ -42,4 +42,7 @@ export const PlatformSchema = z.object({
   type: z.enum(["print", "online", "audiovisual"], { message: "Type is required" }),
   description: z.string().optional(),
   content_categories: z.array(z.string()).min(1, { message: "At least one content category is required" }),
+  content: z.custom<File[]>().optional(),
+  contentType: z.string().optional(),
+  contentNumber: z.string().optional(),
 });
