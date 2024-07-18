@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { IPlatform, IMediaExpert, ICourse, Status } from '../types/appwrite.types';
+import { IPlatform, IMediaExpert, ICourse, Status, joinTeam } from '../types/appwrite.types';
 
 const Platform: React.FC<{ platform: IPlatform }> = ({ platform }) => {
   const handlePublishContent = () => {
@@ -16,12 +16,12 @@ const Platform: React.FC<{ platform: IPlatform }> = ({ platform }) => {
       email: "example@example.com",
       phone: "1234567890",
       bio: "Example bio",
-      password: "example-password",
       identificationDocument: undefined,
       userId: "user-id",
       specialization: "Example specialization",
       interests: ["interest1", "interest2"],
       course: [],
+      joinTeam: joinTeam.No,
       joinCourse: (course: ICourse) => {
         console.log(`Joining course: ${course.title}`);
       },
