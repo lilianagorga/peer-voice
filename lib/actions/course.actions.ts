@@ -3,6 +3,7 @@
 import { ID } from "node-appwrite";
 import { DATABASE_ID, COURSE_COLLECTION_ID, databases } from "../appwrite.config";
 import { parseStringify } from "../utils";
+import { CourseClass } from "../CourseClass";
 
 export const createCourse = async (course: ICreateCourseParams, userId: string) => {
   try {
@@ -29,6 +30,20 @@ export const getCourse = async (courseId: string): Promise<ICourse | null> => {
   } catch (error) {
     console.error("An error occurred while retrieving the course:", error);
     return null;
+  }
+};
+
+export const getCourses = async (): Promise<ICourse[]> => {
+  try {
+    const response = await databases.listDocuments(
+      DATABASE_ID!,
+      COURSE_COLLECTION_ID!,
+      []
+    );
+    return parseStringify(response.documents);
+  } catch (error) {
+    console.error("An error occurred while retrieving courses:", error);
+    return [];
   }
 };
 

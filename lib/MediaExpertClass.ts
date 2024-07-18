@@ -1,4 +1,4 @@
-import { IMediaExpert, ICourse } from '../types/appwrite.types';
+import { IMediaExpert, ICourse, IPlatform, joinTeam } from '../types/appwrite.types';
 
 export class MediaExpertClass implements IMediaExpert {
   public $id: string;
@@ -15,10 +15,11 @@ export class MediaExpertClass implements IMediaExpert {
     public phone: string,
     public bio: string,
     public userId: string,
-    public password: string,
     public interests: string[],
     public identificationDocument: FormData | undefined,
+    public joinTeam: joinTeam,
     public course: ICourse[] = [],
+    public platform?: IPlatform[] 
   ) {
     this.$id = "";
     this.$collectionId = "";

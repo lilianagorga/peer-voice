@@ -20,6 +20,7 @@ import CustomFormField, { FormFieldType } from "../CustomFormField";
 import { FileUploader } from "../FileUploader";
 import SubmitButton from "../SubmitButton";
 import { MediaExpertSchema } from "../../lib/validation";
+import { joinTeam } from "../../types/appwrite.types";
 
 const RegisterForm = ({ user }: { user: User }) => {
   const router = useRouter();
@@ -58,19 +59,23 @@ const RegisterForm = ({ user }: { user: User }) => {
         name: values.name,
         email: values.email,
         phone: values.phone,
-        password: values.password,
         interests: values.interests,
         bio: values.bio,
         specialization: values.specialization,
         identificationType: values.identificationType,
         identificationNumber: values.identificationNumber,
         identificationDocument: values.identificationDocument ? formData : undefined,
+        joinTeam: values.joinTeam,
       };
 
       const newMediaExpert = await registerMediaExpert(media_expert);
 
       if (newMediaExpert) {
-        router.push(`/mediaExperts/${user.$id}/joinCourse`);
+        if (values.joinTeam === "yes") {
+          router.push(`/mediaExperts/${user.$id}/courses`);
+        } else {
+          router.push(`/mediaExperts/${user.$id}/admin`);
+        }
       }
     } catch (error) {
       console.log(error);
@@ -123,6 +128,88 @@ const RegisterForm = ({ user }: { user: User }) => {
               label="Phone Number"
               placeholder="(555) 123-4567"
             />
+          </div>
+
+          <CustomFormField
+            fieldType={FormFieldType.ARRAY}
+            control={form.control}
+            name="interests"
+            label="Interests"
+            placeholder="Enter your interests"
+          />
+
+          <CustomFormField
+            fieldType={FormFieldType.TEXTAREA}
+            control={form.control}
+            name="bio"
+            label="Bio"
+            placeholder="Write a short bio"
+          />
+
+          <CustomFormField
+            fieldType={FormFieldType.INPUT}
+            control={form.control}
+            name="specialization"
+            label="Specialization"
+            placeholder="Enter your specialization"
+          />
+        </section>
+
+        <section className="space-y-6">
+          <div className="mb-9 space-y-1">
+            <h2 className="sub-header">Identification and Verfication</h2>
+          </div>
+
+          <CustomFormField
+            fieldType={FormFieldType.SELECT}
+            control={form.control}
+            name="identificationType"
+            label="Identification Type"
+            placeholder="Select identification type"
+          >
+            {IdentificationTypes.map((type, i) => (
+              <SelectItem key={type + i} value={type}>
+                {type}
+              </SelectItem>
+            ))}
+          </CustomFormField>
+
+          <CustomFormField
+            fieldType={FormFieldType.INPUT}
+            control={form.control}
+            name="identificationNumber"
+            label="Identification Number"
+            placeholder="123456789"
+          />
+
+          <CustomFormField
+            fieldType={FormFieldType.SKELETON}
+            control={form.control}
+            name="identificationDocument"
+            label="Scanned Copy of Identification Document"
+            renderSkeleton={(field) => (
+              <FormControl>
+                <FileUploader files={field.value} onChange={field.onChange} />
+              </FormControl>
+            )}
+          />
+
+          <div className="space-y-4">
+            <h2 className="sub-header">Do you want to join the team?</h2>
+            <RadioGroup
+              className="flex flex-col gap-2"
+              value={form.watch("joinTeam")}
+              onValueChange={(value) => form.setValue("joinTeam", value as joinTeam)}
+            >
+              <div className="flex items-center">
+              <RadioGroupItem value="yes" id="yes" />
+              <label htmlFor="yes" className="ml-2">Yes</label>
+            </div>
+            <div className="flex items-center">
+              <RadioGroupItem value="no" id="no" />
+              <label htmlFor="no" className="ml-2">No</label>
+            </div>
+            </RadioGroup>
           </div>
         </section>
 

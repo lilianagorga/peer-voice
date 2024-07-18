@@ -7,6 +7,7 @@ declare type SearchParamProps = {
 
 declare type Status = "pending" | "scheduled" | "cancelled";
 declare type Type = "print" | "online" | "audiovisual";
+declare type joinTeam = "yes" | "no";
 
 declare interface CreateUserParams {
   name: string;
@@ -20,13 +21,13 @@ declare interface User extends CreateUserParams {
 
 declare interface RegisterUserParams extends CreateUserParams {
   userId: string;
-  password: string;
   identificationDocument: FormData | undefined;
   interests?: string[];
   bio?: string;
   specialization?: string;
   course?: ICourse[];
   platform?: IPlatform[];
+  joinTeam: joinTeam;
 }
 
 declare interface IMediaExpert extends RegisterUserParams {
@@ -45,6 +46,11 @@ declare interface ICreateCourseParams {
 
 declare interface ICourse extends ICreateCourseParams {
   $id: string;
+  $collectionId: string;
+  $databaseId: string;
+  $createdAt: string;
+  $updatedAt: string;
+  $permissions: string[];
   userId: string,
   addParticipant(person: IMediaExpert): void;
 }
