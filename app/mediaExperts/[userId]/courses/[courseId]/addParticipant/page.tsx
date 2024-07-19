@@ -1,10 +1,13 @@
+import Success from "../../../../../../components/Success";
+
 const AddParticipantPage = ({ params, searchParams }: { params: { userId: string; courseId: string }, searchParams: { mediaExpertId: string } }) => {
   return (
-    <div>
-      <h1>Add Participant</h1>
-      <p>Course ID: {params.courseId}</p>
-      <p>Media Expert ID: {searchParams.mediaExpertId}</p>
-    </div>
+    <Success
+    title="Participant Added Successfully"
+    description="Participant has been successfully added."
+    buttonText="Go to Dashboard"
+    buttonLink={`/mediaExperts/${params.userId}/team`}
+  />
   );
 };
 

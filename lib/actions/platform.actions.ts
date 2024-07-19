@@ -125,6 +125,13 @@ export const publishContent = async (platformId: string, mediaExpertId: string, 
       file = await storage.createFile(BUCKET_ID!, ID.unique(), inputFile);
     }
 
+    const platform = await databases.getDocument(
+      DATABASE_ID!,
+      PLATFORM_COLLECTION_ID!,
+      platformId
+    ) as IPlatform;
+
+
     const updatedPlatform = await databases.updateDocument(
       DATABASE_ID!,
       PLATFORM_COLLECTION_ID!,
@@ -134,6 +141,8 @@ export const publishContent = async (platformId: string, mediaExpertId: string, 
         contentUrl: file?.$id
           ? `${ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${file.$id}/view?project=${PROJECT_ID}`
           : null,
+          userId: mediaExpertId,
+          description: platform.description,
       }
     );
 

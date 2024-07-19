@@ -7,27 +7,18 @@ export const MediaExpertFormDefaultValues = {
   interests: [],
   bio: "",
   specialization: "",
-  identificationType: "Birth Certificate",
+  identificationType: "ID Card",
   identificationNumber: "",
   identificationDocument: [],
   joinTeam: joinTeam.No, 
 }
 
 export const IdentificationTypes = [
-  "Birth Certificate",
-  "Driver's License",
-  "Medical Insurance Card/Policy",
-  "Military ID Card",
-  "National Identity Card",
+  "ID Card",
   "Passport",
-  "Resident Alien Card (Green Card)",
-  "Social Security Card",
-  "State ID Card",
-  "Student ID Card",
-  "Voter ID Card",
 ];
 
-export const PlatformFormDefaultValues = {
+export const PlatformDefaultValues = {
   name: "",
   description: "",
   content_categories: [],

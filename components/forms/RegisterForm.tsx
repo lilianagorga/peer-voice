@@ -71,7 +71,7 @@ const RegisterForm = ({ user }: { user: User }) => {
 
       if (newMediaExpert) {
         if (values.joinTeam === "yes") {
-          router.push(`/mediaExperts/${user.$id}/courses`);
+          router.push(`/mediaExperts/${user.$id}/team`);
         } else {
           router.push(`/mediaExperts/${user.$id}/admin`);
         }
@@ -210,11 +210,11 @@ const RegisterForm = ({ user }: { user: User }) => {
             >
               <div className="flex items-center">
               <RadioGroupItem value="yes" id="yes" />
-              <label htmlFor="yes" className="ml-2">Yes</label>
+              <label htmlFor="yes" className="ml-2">I&apos;d love to!</label>
             </div>
             <div className="flex items-center">
               <RadioGroupItem value="no" id="no" />
-              <label htmlFor="no" className="ml-2">No</label>
+              <label htmlFor="no" className="ml-2">Not at the moment</label>
             </div>
             </RadioGroup>
           </div>

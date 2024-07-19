@@ -1,10 +1,10 @@
-import Platform from '../../../../components/Platform';
+import PublishContent from '../../../../components/PublishContent';
 
 const PlatformPage = ({ params }: { params: { userId: string } }) => {
   const { userId } = params;
 
   return (
-    <Platform userId={userId} />
+    <PublishContent userId={userId} />
   );
 }
 
