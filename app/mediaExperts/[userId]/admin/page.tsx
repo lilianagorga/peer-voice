@@ -1,4 +1,3 @@
-import PlatformForm from "../../../../components/forms/PlatformForm";
 import JoinCourse from "../../../../components/JoinCourse";
 
 const AdminPage = async ({ params: { userId } }: SearchParamProps) => {
@@ -18,9 +17,6 @@ const AdminPage = async ({ params: { userId } }: SearchParamProps) => {
         </section>
         <section className="w-full space-y-4">
           <JoinCourse userId={userId} />
-        </section>
-        <section className="w-full space-y-4">
-        <PlatformForm userId={userId} />
         </section>
       </main>
     </div>

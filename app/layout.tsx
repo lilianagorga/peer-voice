@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from '../lib/utils';
 import Navbar from '../components/Navbar';
 import { ThemeProvider } from "next-themes";
+import Footer from "../components/Footer";
 
 const fontSans = Plus_Jakarta_Sans({ subsets: ["latin"], weight: ['300', '400', '500', '600', '700'], variable: '--font-sans' });
 
@@ -22,7 +23,8 @@ export default function RootLayout({
       <body className={cn('min-h-screen bg-dark-300 font-sans antialiased', fontSans.variable)} suppressHydrationWarning={true}>
       <ThemeProvider attribute="class" defaultTheme="dark">
         <Navbar />
-        {children}
+        <main>{children}</main>
+        <Footer />
       </ThemeProvider>
       </body>
     </html>

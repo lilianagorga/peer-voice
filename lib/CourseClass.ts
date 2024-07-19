@@ -25,7 +25,6 @@ export class CourseClass implements ICourse {
     this.$updatedAt = new Date().toISOString();
     this.$permissions = [];
     this.media_expert = media_expert;
-    this.media_expert = media_expert;
   }
 
   addParticipant(person: IMediaExpert): void {

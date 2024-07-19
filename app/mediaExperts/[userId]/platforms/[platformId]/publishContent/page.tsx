@@ -1,8 +1,13 @@
-const PublishContentPage = () => {
+import Success from "../../../../../../components/Success";
+
+const PublishContentPage = ({ params }: { params: { userId: string; platformId: string } }) => {
   return (
-    <div>
-      <h1>Content Published Successfully</h1>
-    </div>
+    <Success
+      title="Content Published Successfully"
+      description="Content has been successfully published."
+      buttonText="Go to Dashboard"
+      buttonLink={`/mediaExperts/${params.userId}/team`}
+    />
   );
 };
 
