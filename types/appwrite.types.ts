@@ -1,5 +1,10 @@
 import { Models } from "node-appwrite";
 
+export interface PasskeyMapDocument extends Models.Document {
+  passkey: string;
+  userId: string;
+}
+
 export interface IMediaExpert extends Models.Document {
   $id: string;
   userId: string;
