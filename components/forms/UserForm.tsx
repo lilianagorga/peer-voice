@@ -10,6 +10,7 @@ import SubmitButton from "../SubmitButton";
 import { Form } from "../ui/form";
 import { createUser } from "../../lib/actions/media_expert.actions";
 import { UserSchema } from "../../lib/validation";
+import { PasskeyInput } from "../PasskeyInput";
 import "react-phone-number-input/style.css";
 
 export const UserForm = () => {
@@ -41,10 +42,6 @@ const onSubmit = async (values: z.infer<typeof UserSchema>) => {
 
     const newUser = await createUser(user, values.passkey);
     console.log("User created:", newUser);
-
-    // if (newUser) {
-    //   router.push(`/mediaExperts/${newUser.$id}/register`);
-    // }
     if (newUser && newUser.error) {
       setErrorMessage(newUser.error);
     } else if (newUser && newUser.$id) {
@@ -98,17 +95,12 @@ return (
         label="Phone number"
         placeholder="(555) 123-4567"
       />
-
-      <CustomFormField
-        fieldType={FormFieldType.INPUT}
-        control={form.control}
-        name="passkey"
-        label="Passkey"
-        placeholder="Enter your passkey"
-        iconSrc="/assets/icons/lock.svg"
-        iconAlt="lock"
-        />
-
+      <PasskeyInput
+        maxLength={12}
+        minLength={6}
+        value={form.watch("passkey")}
+        onChange={(value) => form.setValue("passkey", value)}
+      />
       <SubmitButton isLoading={isLoading}>Get Started</SubmitButton>
     </form>
   </Form>
