@@ -15,6 +15,7 @@ import "react-phone-number-input/style.css";
 export const UserForm = () => {
 const router = useRouter();
 const [isLoading, setIsLoading] = useState(false);
+const [errorMessage, setErrorMessage] = useState("");
 
 const form = useForm<z.infer<typeof UserSchema>>({
   resolver: zodResolver(UserSchema),
@@ -22,11 +23,13 @@ const form = useForm<z.infer<typeof UserSchema>>({
     name: "",
     email: "",
     phone: "",
+    passkey: "",
   },
 });
 
 const onSubmit = async (values: z.infer<typeof UserSchema>) => {
   setIsLoading(true);
+  setErrorMessage("");
   console.log("Submitting form with values:", values);
 
   try {
@@ -36,10 +39,15 @@ const onSubmit = async (values: z.infer<typeof UserSchema>) => {
       phone: values.phone,
     };
 
-    const newUser = await createUser(user);
+    const newUser = await createUser(user, values.passkey);
     console.log("User created:", newUser);
 
-    if (newUser) {
+    // if (newUser) {
+    //   router.push(`/mediaExperts/${newUser.$id}/register`);
+    // }
+    if (newUser && newUser.error) {
+      setErrorMessage(newUser.error);
+    } else if (newUser && newUser.$id) {
       router.push(`/mediaExperts/${newUser.$id}/register`);
     }
   } catch (error) {
@@ -56,6 +64,12 @@ return (
         <h1 className="header">Hi there 👋</h1>
         <p className="text-dark-700">Get started with appointments.</p>
       </section>
+
+      {errorMessage && (
+          <div className="mb-4 text-red-500">
+            {errorMessage}
+          </div>
+        )}
 
       <CustomFormField
         fieldType={FormFieldType.INPUT}
@@ -84,6 +98,16 @@ return (
         label="Phone number"
         placeholder="(555) 123-4567"
       />
+
+      <CustomFormField
+        fieldType={FormFieldType.INPUT}
+        control={form.control}
+        name="passkey"
+        label="Passkey"
+        placeholder="Enter your passkey"
+        iconSrc="/assets/icons/lock.svg"
+        iconAlt="lock"
+        />
 
       <SubmitButton isLoading={isLoading}>Get Started</SubmitButton>
     </form>
