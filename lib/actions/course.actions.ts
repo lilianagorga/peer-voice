@@ -1,6 +1,6 @@
 "use server";
 
-import { ID } from "node-appwrite";
+import { ID, Query } from "node-appwrite";
 import { DATABASE_ID, COURSE_COLLECTION_ID, databases } from "../appwrite.config";
 import { parseStringify } from "../utils";
 
@@ -72,5 +72,49 @@ export const deleteCourse = async (courseId: string): Promise<boolean> => {
   } catch (error) {
     console.error("An error occurred while deleting the course:", error);
     return false;
+  }
+};
+
+export const getRecentCourseList = async () => {
+  try {
+    const courses = await databases.listDocuments(
+      DATABASE_ID!,
+      COURSE_COLLECTION_ID!,
+      [Query.orderDesc("$createdAt")]
+    );
+
+    const initialCounts = {
+      scheduledCount: 0,
+      pendingCount: 0,
+      cancelledCount: 0,
+    };
+
+    const counts = (courses.documents as ICourse[]).reduce(
+      (acc, course) => {
+        switch (course.status) {
+          case "scheduled":
+            acc.scheduledCount++;
+            break;
+          case "pending":
+            acc.pendingCount++;
+            break;
+          case "cancelled":
+            acc.cancelledCount++;
+            break;
+        }
+        return acc;
+      },
+      initialCounts
+    );
+
+    const data = {
+      totalCount: courses.total,
+      ...counts,
+      documents: courses.documents,
+    };
+
+    return parseStringify(data);
+  } catch (error) {
+    console.error("An error occurred while retrieving the recent courses:", error);
   }
 };

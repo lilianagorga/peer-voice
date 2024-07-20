@@ -362,3 +362,18 @@
   border-radius: 4px;
   font-size: 20px;
 }
+
+.status-pending {
+  background-color: #f3a712;
+  color: white;
+}
+
+.status-scheduled {
+  background-color: #24ae7c;
+  color: white;
+}
+
+.status-cancelled {
+  background-color: #d9534f;
+  color: white;
+}
