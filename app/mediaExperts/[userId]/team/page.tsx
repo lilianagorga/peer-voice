@@ -7,8 +7,8 @@ const TeamPage = ({ params }: { params: { userId: string } }) => {
 
   return (
     <div className="mx-auto flex max-w-7xl flex-col space-y-14">
-      <header className="admin-header">
-        <p className="text-16-semibold">Team Dashboard</p>
+      <header className="team-header mt-8">
+        <p className="text-16-bold text-center">Team Dashboard</p>
       </header>
 
       <main className="admin-main">

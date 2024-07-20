@@ -81,9 +81,9 @@
     @apply flex w-full flex-col items-center gap-8 border-y-2 border-dark-400 py-8 md:w-fit md:flex-row;
   }
 
-  /* ===== ADMIN */
-  .admin-header {
-    @apply sticky top-3 z-20 mx-3 flex items-center justify-between rounded-2xl bg-dark-200 px-[5%] py-5 shadow-lg xl:px-12;
+  /* ===== ADMIN & TEAM */
+  .admin-header, .team-header {
+    @apply sticky top-3 z-20 mx-3 flex items-center justify-center rounded-2xl bg-dark-200 px-[5%] py-5 shadow-lg xl:px-12;
   }
 
   .admin-main {
@@ -183,7 +183,7 @@
 
   /* =====  SHADCN OVERRIDES */
   .shad-primary-btn {
-    @apply bg-green-500 text-white !important;
+    @apply bg-lime-500 text-white !important;
   }
 
   .shad-danger-btn {
@@ -347,4 +347,18 @@
 
 .PhoneInputInput::placeholder {
   color: #1a1d21;
+}
+
+.passkey-container {
+  display: flex;
+  gap: 8px;
+}
+
+.passkey-slot {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 20px;
 }

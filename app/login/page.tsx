@@ -3,11 +3,11 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import CustomFormField, { FormFieldType } from "../../components/CustomFormField";
 import { useForm, FormProvider } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PasskeySchema } from "../../lib/validation";
+import { PasskeyInput } from "../../components/PasskeyInput";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -54,15 +54,12 @@ const LoginPage = () => {
         )}
         <FormProvider {...form}>
           <form onSubmit={form.handleSubmit(handleLogin)}>
-            <CustomFormField
-              fieldType={FormFieldType.INPUT}
-              control={form.control}
-              name="passkey"
-              label="Passkey"
-              placeholder="Enter your passkey"
-              iconSrc="/assets/icons/lock.svg"
-              iconAlt="lock"
-            />
+            <PasskeyInput
+              maxLength={12}
+              minLength={6}
+              value={form.watch("passkey")}
+              onChange={(value) => form.setValue("passkey", value)}
+            />  
             <div className="flex space-x-4">
               <label>
                 <input

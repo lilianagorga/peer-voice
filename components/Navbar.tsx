@@ -14,14 +14,14 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="p-4 bg-blue-500 text-white">
+    <nav className="p-4 bg-lime-500 text-white">
       <ul className="flex space-x-4">
-        <li><Link href="/">Home</Link></li>
+      <li><Link href="/" className="font-bold">Home</Link></li>
         {userId ? (
           <>
-            <li><Link href={`/mediaExperts/${userId}/admin`}>Admin</Link></li>
-            <li><Link href={`/mediaExperts/${userId}/team`}>Team</Link></li>
-            <li><button onClick={handleLogout} className="text-white">Logout</button></li>
+            <li><Link href={`/mediaExperts/${userId}/admin`} className="font-bold">Admin</Link></li>
+            <li><Link href={`/mediaExperts/${userId}/team`} className="font-bold">Team</Link></li>
+            <li><button onClick={handleLogout} className="text-white font-bold">Logout</button></li>
           </>
         ) : (
           <li><Link href="/login">Login</Link></li>
