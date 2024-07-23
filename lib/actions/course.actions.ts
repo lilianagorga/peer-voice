@@ -1,9 +1,9 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
 import { ID, Query } from "node-appwrite";
-import { DATABASE_ID, COURSE_COLLECTION_ID, databases } from "../appwrite.config";
+import { DATABASE_ID, COURSE_COLLECTION_ID, databases, COURSE_PARTICIPANTS_COLLECTION_ID } from "../appwrite.config";
 import { parseStringify } from "../utils";
+import { CourseParticipants, Status } from "../../types/appwrite.types";
 
 export const createCourse = async (course: ICreateCourseParams, userId: string) => {
   try {
@@ -47,34 +47,6 @@ export const getCourses = async (): Promise<ICourse[]> => {
   }
 };
 
-// export const updateCourse = async (courseId: string, updatedData: any): Promise<ICourse | null> => {
-//   try {
-//     const updatedCourse = await databases.updateDocument(
-//       DATABASE_ID!,
-//       COURSE_COLLECTION_ID!,
-//       courseId,
-//       updatedData
-//     ) as unknown as ICourse;
-//     return parseStringify(updatedCourse);
-//   } catch (error) {
-//     console.error("An error occurred while updating the course:", error);
-//     return null;
-//   }
-// };
-
-// export const deleteCourse = async (courseId: string): Promise<boolean> => {
-//   try {
-//     await databases.deleteDocument(
-//       DATABASE_ID!,
-//       COURSE_COLLECTION_ID!,
-//       courseId
-//     );
-//     return true;
-//   } catch (error) {
-//     console.error("An error occurred while deleting the course:", error);
-//     return false;
-//   }
-// };
 
 export const getRecentCourseList = async () => {
   try {
@@ -169,5 +141,88 @@ export const updateCourse = async (courseId: string, updatedData: any): Promise<
   } catch (error) {
     console.error("An error occurred while updating the course:", error);
     return null;
+  }
+};
+
+export const joinCourse = async (courseId: string, mediaExpertId: string): Promise<any> => {
+  try {
+    const newParticipant = await databases.createDocument(
+      DATABASE_ID!,
+      COURSE_PARTICIPANTS_COLLECTION_ID!,
+      ID.unique(),
+      { courseId, mediaExpertId, status: Status.Scheduled }
+    );
+    return newParticipant;
+  } catch (error) {
+    console.error("Error joining course:", error);
+    throw error;
+  }
+};
+
+export const getCoursesForMediaExpert = async (mediaExpertId: string): Promise<ICourse[]> => {
+  if (!mediaExpertId) {
+    throw new Error("mediaExpertId is required");
+  }
+
+  try {
+    const participantCourses = await databases.listDocuments<CourseParticipants>(
+      DATABASE_ID!,
+      COURSE_PARTICIPANTS_COLLECTION_ID!,
+      [Query.equal("mediaExpertId", mediaExpertId)]
+    );
+
+    if (participantCourses.documents.length === 0) {
+      return [];
+    }
+
+    const courseIds = participantCourses.documents.map(doc => doc.courseId);
+    const courseStatuses = participantCourses.documents.reduce((acc, doc) => {
+      acc[doc.courseId] = doc.status;
+      return acc;
+    }, {} as Record<string, Status>);
+
+    const courses = await databases.listDocuments(
+      DATABASE_ID!,
+      COURSE_COLLECTION_ID!,
+      [Query.equal("$id", courseIds)]
+    );
+
+    const coursesWithStatus = courses.documents.map(course => ({
+      ...course,
+      status: courseStatuses[course.$id] || Status.Scheduled
+    }));
+
+    return parseStringify(coursesWithStatus);
+  } catch (error) {
+    console.error("An error occurred while retrieving the courses for the media expert:", error);
+    return [];
+  }
+};
+
+export const updateJoinedCourseStatus = async (courseId: string, mediaExpertId: string, newStatus: Status) => {
+  try {
+    const participantCourses = await databases.listDocuments<CourseParticipants>(
+      DATABASE_ID!,
+      COURSE_PARTICIPANTS_COLLECTION_ID!,
+      [Query.equal("courseId", courseId), Query.equal("mediaExpertId", mediaExpertId)]
+    );
+
+    if (participantCourses.documents.length === 0) {
+      throw new Error("No participant record found");
+    }
+
+    const participantCourseId = participantCourses.documents[0].$id;
+
+    const updatedParticipant = await databases.updateDocument(
+      DATABASE_ID!,
+      COURSE_PARTICIPANTS_COLLECTION_ID!,
+      participantCourseId,
+      { status: newStatus }
+    );
+
+    return updatedParticipant;
+  } catch (error) {
+    console.error("Error updating joined course status:", error);
+    throw error;
   }
 };
