@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { getCourses } from "../lib/actions/course.actions";
+import { getCourses, joinCourse } from "../lib/actions/course.actions";
 import {
   Dialog,
   DialogTrigger,
@@ -10,6 +10,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
 } from "./ui/dialog";
 import Button from "./Button";
 import Image from "next/image";
@@ -18,23 +19,44 @@ const JoinCourse = ({ userId, onJoinCourse }: { userId: string, onJoinCourse: (c
   const router = useRouter();
   const [courses, setCourses] = useState<ICourse[]>([]);
   const [selectedCourse, setSelectedCourse] = useState<string>("");
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchCourses = async () => {
-      const coursesList = await getCourses();
-      setCourses(coursesList);
+      try {
+        console.log("Fetching courses...");
+        const coursesList = await getCourses();
+        console.log("Courses fetched:", coursesList);
+        setCourses(coursesList);
+      } catch (error) {
+        console.error("Error fetching courses:", error);
+        setError("Failed to load courses. Please try again later.");
+      }
     };
     fetchCourses();
   }, []);
 
-  const handleJoinCourse = () => {
+  const handleJoinCourse = async () => {
+    console.log("Selected Course:", selectedCourse);
+    console.log("User ID:", userId);
     if (!selectedCourse) {
       alert("Please select a course first");
       return;
     }
-    onJoinCourse(selectedCourse);
-    router.push(`/mediaExperts/${userId}/courses/${selectedCourse}/joinCourse`);
+    try {
+      const result = await joinCourse(selectedCourse, userId);
+      console.log("Join course result:", result);
+      if (result?.message === "Already joined") {
+        alert("You are already a participant in this course.");
+      } else {
+        onJoinCourse(selectedCourse);
+        router.push(`/mediaExperts/${userId}/courses/${selectedCourse}/joinCourse`);
+      }
+    } catch (error) {
+      console.error("Error joining course:", error);
+    }
   };
+
 
   return (
     <div className="flex justify-center">
@@ -46,10 +68,14 @@ const JoinCourse = ({ userId, onJoinCourse }: { userId: string, onJoinCourse: (c
           </Button>
         </DialogTrigger>
         <DialogOverlay />
-        <DialogContent>
+        <DialogContent aria-describedby="join-course-description">
           <DialogHeader>
             <DialogTitle>Join a Course</DialogTitle>
+            <DialogDescription id="join-course-description">
+              Select a course from the list and click Join Course.
+            </DialogDescription>
           </DialogHeader>
+          {error && <p className="text-red-500">{error}</p>}
           <div className="mb-4">
             <select
               value={selectedCourse}

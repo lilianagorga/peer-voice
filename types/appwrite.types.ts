@@ -5,6 +5,12 @@ export interface PasskeyMapDocument extends Models.Document {
   userId: string;
 }
 
+export interface CourseParticipants extends Models.Document {
+  courseId: string;
+  mediaExpertId: string;
+  status: Status;
+}
+
 export interface IMediaExpert extends Models.Document {
   $id: string;
   userId: string;
