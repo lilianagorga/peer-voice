@@ -7,7 +7,7 @@ import { getCourses } from "../../../../lib/actions/course.actions";
 import { getMediaExperts } from "../../../../lib/actions/media_expert.actions";
 import Course from "../../../../components/Course";
 import { ICourse } from "../../../../types/appwrite.types";
-import Platform from "../../../../components/PublishContent";
+import Platform from "../../../../components/Platform";
 import PublishContent from "../../../../components/PublishContent";
 
 const TeamPage = ({ params }: { params: { userId: string } }) => {
@@ -51,10 +51,8 @@ const TeamPage = ({ params }: { params: { userId: string } }) => {
         <section className="w-full space-y-4">
           <DataTable columns={columnsTeam} data={coursesData} />
         </section>
-        <section className="w-full space-y-4">
-          <Platform userId={userId} />
-        </section>
-        <section className="w-full space-y-4">
+        <section className="w-full flex flex-row justify-around space-x-4">
+          <Platform userId={userId} closeModal={() => {}} />
           <PublishContent userId={userId} />
         </section>
       </main>

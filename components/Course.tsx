@@ -61,7 +61,7 @@ const Course: React.FC<CourseProps> = ({ userId }) => {
       <Dialog>
         <DialogTrigger asChild>
           <Button className="flex flex-row items-center justify-around h-36 w-96 rounded-lg shadow-md">
-            <Image src="/assets/icons/magnifying-glass.svg" alt="Discover" width={64} height={64} />
+            <Image src="/assets/icons/participant.svg" alt="Discover" width={64} height={64} />
             <span className="text-xl font-bold pb-2">Add Participant</span>
           </Button>
         </DialogTrigger>
