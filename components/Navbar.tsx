@@ -24,7 +24,7 @@ const Navbar: React.FC = () => {
             <li><button onClick={handleLogout} className="text-white font-bold">Logout</button></li>
           </>
         ) : (
-          <li><Link href="/login">Login</Link></li>
+          <li><Link href="/login" className='font-bold'>Login</Link></li>
         )}
       </ul>
     </nav>

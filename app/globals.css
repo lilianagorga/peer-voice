@@ -377,3 +377,7 @@
   background-color: #d9534f;
   color: white;
 }
+
+.custom-modal-width {
+  max-width: 800px;
+}
