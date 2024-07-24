@@ -2,14 +2,31 @@
 
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { getCourses } from "../lib/actions/course.actions";
+import { getCourses, updateCourse } from "../lib/actions/course.actions";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogOverlay,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "./ui/dialog";
+import Button from "./Button";
+import Image from "next/image";
 import { getMediaExperts } from "../lib/actions/media_expert.actions";
+import { ICourse } from "../types/appwrite.types";
 
-const Course = ({ userId }: { userId: string }) => {
+interface CourseProps {
+  userId: string;
+}
+
+const Course: React.FC<CourseProps> = ({ userId }) => {
   const router = useRouter();
   const [courses, setCourses] = useState<ICourse[]>([]);
   const [mediaExperts, setMediaExperts] = useState<IMediaExpert[]>([]);
   const [selectedMediaExpert, setSelectedMediaExpert] = useState<string>("");
+  const [selectedCourse, setSelectedCourse] = useState<string>("");
 
   useEffect(() => {
     const fetchCoursesAndMediaExperts = async () => {
@@ -21,26 +38,58 @@ const Course = ({ userId }: { userId: string }) => {
     fetchCoursesAndMediaExperts();
   }, []);
 
-  const handleAddParticipant = (courseId: string) => {
+  const handleAddParticipant = async (courseId: string) => {
     if (!selectedMediaExpert) {
       alert("Please select a media expert first");
       return;
     }
-    router.push(`/mediaExperts/${userId}/courses/${courseId}/addParticipant?mediaExpertId=${selectedMediaExpert}`);
+    console.log("Adding participant:", { userId, courseId, selectedMediaExpert });
+    try {
+      await updateCourse(courseId, selectedMediaExpert);
+      const updatedCourses = await getCourses();
+      console.log("Updated courses data:", updatedCourses);
+      setCourses(updatedCourses);
+
+      router.push(`/mediaExperts/${userId}/courses/${courseId}/addParticipant?mediaExpertId=${selectedMediaExpert}`);
+    } catch (error) {
+      console.error("Error adding participant:", error);
+    }
   };
 
-
   return (
-    <div>
-    <h1>Courses</h1>
-    <ul>
-        {courses.map((course) => (
-          <li key={course.$id}>
-            <h2>{course.title}</h2>
-            <p>{course.description}</p>
+    <div className="flex justify-center">
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button className="flex flex-row items-center justify-around h-36 w-96 rounded-lg shadow-md">
+            <Image src="/assets/icons/magnifying-glass.svg" alt="Discover" width={64} height={64} />
+            <span className="text-xl font-bold pb-2">Add Participant</span>
+          </Button>
+        </DialogTrigger>
+        <DialogOverlay />
+        <DialogContent aria-describedby="add-participant-description">
+          <DialogHeader>
+            <DialogTitle>Add Participant to Course</DialogTitle>
+            <DialogDescription id="add-participant-description">
+              Select a course and a media expert from the list and click Add Participant.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="mb-4">
+            <select
+              value={selectedCourse}
+              onChange={(e) => setSelectedCourse(e.target.value)}
+              className="mb-4 p-2 border border-gray-300 rounded w-full"
+            >
+              <option value="">Select Course</option>
+              {courses.map((course) => (
+                <option key={course.$id} value={course.$id}>
+                  {course.title}
+                </option>
+              ))}
+            </select>
             <select
               value={selectedMediaExpert}
               onChange={(e) => setSelectedMediaExpert(e.target.value)}
+              className="mb-4 p-2 border border-gray-300 rounded w-full"
             >
               <option value="">Select Media Expert</option>
               {mediaExperts.map((expert) => (
@@ -49,13 +98,13 @@ const Course = ({ userId }: { userId: string }) => {
                 </option>
               ))}
             </select>
-            <button onClick={() => handleAddParticipant(course.$id)}>
+            <Button onClick={() => handleAddParticipant(selectedCourse)} className="w-full">
               Add Participant
-            </button>
-          </li>
-        ))}
-      </ul>
-  </div>
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </div>
   );
 };
 
