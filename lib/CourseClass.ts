@@ -15,7 +15,6 @@ export class CourseClass implements ICourse {
     public status: Status,
     public userId: string,
     public course_area: string,
-    public duration: number,
     media_expert: IMediaExpert[] = [],
   ) {
     this.$id = "";

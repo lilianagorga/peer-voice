@@ -1,4 +1,4 @@
-import { joinTeam, Type } from "../types/appwrite.types";
+import { joinTeam, Type, Status } from "../types/appwrite.types";
 
 export const MediaExpertFormDefaultValues = {
   name: "",
@@ -39,4 +39,10 @@ export const StatusIcon = {
   scheduled: "/assets/icons/check.svg",
   pending: "/assets/icons/pending.svg",
   cancelled: "/assets/icons/cancelled.svg",
+};
+
+export const CourseDefaultValues = {
+  title: "",
+  description: "",
+  course_area: "",
 };

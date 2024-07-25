@@ -40,7 +40,6 @@ declare interface ICreateCourseParams {
   description: string;
   status: Status;
   course_area: string;
-  duration: number;
   media_expert?: IMediaExpert[];
 }
 
