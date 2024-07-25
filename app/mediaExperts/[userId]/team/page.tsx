@@ -5,7 +5,7 @@ import { columnsTeam } from "../../../../components/table/columnsTeam";
 import { DataTable } from "../../../../components/table/DataTable";
 import { getCourses } from "../../../../lib/actions/course.actions";
 import { getMediaExperts } from "../../../../lib/actions/media_expert.actions";
-import Course from "../../../../components/Course";
+import AddParticipant from "../../../../components/AddParticipant";
 import { ICourse } from "../../../../types/appwrite.types";
 import Platform from "../../../../components/Platform";
 import PublishContent from "../../../../components/PublishContent";
@@ -46,7 +46,7 @@ const TeamPage = ({ params }: { params: { userId: string } }) => {
 
       <main className="admin-main">
         <section className="w-full space-y-4">
-          <Course userId={userId} />
+          <AddParticipant userId={userId} />
         </section>
         <section className="w-full space-y-4">
           <DataTable columns={columnsTeam} data={coursesData} />
