@@ -30,13 +30,18 @@ const MediaExpertBaseSchema = z.object({
   userId: z.string().optional(),
 });
 
+export const CourseRegisterSchema = z.object({
+  title: z.string().min(1, { message: "Title is required" }),
+  description: z.string().min(1, { message: "Description is required" }),
+  course_area: z.string().min(1, { message: "Course area is required" }),
+})
+
 const CourseBaseSchema = z.object({
   title: z.string().min(1, { message: "Title is required" }),
   description: z.string().min(1, { message: "Description is required" }),
   status: z.enum(["pending", "scheduled", "cancelled"], { message: "Status is required" }),
   media_expert_id: z.string().min(1, { message: "Media expert ID is required" }),
   course_area: z.string().min(1, { message: "Course area is required" }),
-  duration: z.number().min(1, { message: "Duration is required" }),
 });
 
 export const MediaExpertSchema = MediaExpertBaseSchema.extend({

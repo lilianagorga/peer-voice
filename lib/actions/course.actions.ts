@@ -5,17 +5,20 @@ import { DATABASE_ID, COURSE_COLLECTION_ID, databases, COURSE_PARTICIPANTS_COLLE
 import { parseStringify } from "../utils";
 import { CourseParticipants, Status, ICourse } from "../../types/appwrite.types";
 
-export const createCourse = async (course: ICreateCourseParams, userId: string) => {
+export const registerCourse = async ({ ...course }: ICreateCourseParams) => {
   try {
+    console.log("Attempting to create course with data:", course);
     const newCourse = await databases.createDocument(
       DATABASE_ID!,
       COURSE_COLLECTION_ID!,
       ID.unique(),
-      { ...course, userId },
+      { ...course }
     );
+    console.log("Course created successfully:", newCourse);
     return parseStringify(newCourse);
   } catch (error) {
     console.error("An error occurred while creating course:", error);
+    throw error;
   }
 };
 

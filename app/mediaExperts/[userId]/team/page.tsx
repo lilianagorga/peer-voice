@@ -5,8 +5,9 @@ import { columnsTeam } from "../../../../components/table/columnsTeam";
 import { DataTable } from "../../../../components/table/DataTable";
 import { getCourses } from "../../../../lib/actions/course.actions";
 import { getMediaExperts } from "../../../../lib/actions/media_expert.actions";
-import AddParticipant from "../../../../components/AddParticipant";
 import { ICourse } from "../../../../types/appwrite.types";
+import AddParticipant from "../../../../components/AddParticipant";
+import Course from "../../../../components/Course";
 import Platform from "../../../../components/Platform";
 import PublishContent from "../../../../components/PublishContent";
 
@@ -45,7 +46,8 @@ const TeamPage = ({ params }: { params: { userId: string } }) => {
       </header>
 
       <main className="admin-main">
-        <section className="w-full space-y-4">
+        <section className="w-full flex flex-row justify-around space-x-4">
+        <Course userId={userId} closeModal={() => {}} />
           <AddParticipant userId={userId} />
         </section>
         <section className="w-full space-y-4">

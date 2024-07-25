@@ -34,7 +34,6 @@ export interface ICourse extends Models.Document {
   status: Status;
   userId: string,
   course_area: string;
-  duration: number;
   media_expert?: IMediaExpert[];
   addParticipant(person: IMediaExpert): void;
 }
