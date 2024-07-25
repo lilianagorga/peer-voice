@@ -3,7 +3,7 @@
 import { ID, Query } from "node-appwrite";
 import { DATABASE_ID, COURSE_COLLECTION_ID, databases, COURSE_PARTICIPANTS_COLLECTION_ID } from "../appwrite.config";
 import { parseStringify } from "../utils";
-import { CourseParticipants, Status, ICourse, IMediaExpert } from "../../types/appwrite.types";
+import { CourseParticipants, Status, ICourse } from "../../types/appwrite.types";
 
 export const createCourse = async (course: ICreateCourseParams, userId: string) => {
   try {

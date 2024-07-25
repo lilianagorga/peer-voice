@@ -1,4 +1,4 @@
-import Course from "../../../../components/Course";
+import AddParticipant from "../../../../components/AddParticipant";
 
 const CoursesPage = ({ params }: { params: { userId: string } }) => {
   const { userId } = params;
@@ -7,7 +7,7 @@ const CoursesPage = ({ params }: { params: { userId: string } }) => {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-8">
       <h1 className="text-4xl font-bold mb-8">Course Page</h1>
-      <Course userId={userId} />
+      <AddParticipant userId={userId} />
     </main>
   );
 };
