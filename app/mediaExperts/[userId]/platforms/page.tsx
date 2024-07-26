@@ -4,7 +4,9 @@ const PlatformPage = ({ params }: { params: { userId: string } }) => {
   const { userId } = params;
 
   return (
-    <PublishContent userId={userId} />
+    <div className='m-20'>
+      <PublishContent userId={userId} />
+    </div>
   );
 }
 

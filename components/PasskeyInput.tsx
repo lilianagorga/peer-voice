@@ -38,7 +38,7 @@ export const PasskeyInput = ({
   };
 
   return (
-    <div className="passkey-container">
+    <div className="passkey-container flex flex-wrap justify-center">
       {passkeyValues.slice(0, maxLength).map((char, index) => (
         <input
           key={index}
@@ -47,7 +47,7 @@ export const PasskeyInput = ({
           onChange={(e) => handleChange(index, e.target.value)}
           onKeyDown={(e) => handleKeyDown(index, e)}
           maxLength={1}
-          className="passkey-slot"
+          className="passkey-slot w-10 h-10 text-center border border-gray-400 rounded-md m-1 md:w-8 md:h-8 sm:w-6 sm:h-6"
           ref={(el) => {
             inputRefs.current[index] = el;
           }}

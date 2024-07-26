@@ -46,14 +46,14 @@ const TeamPage = ({ params }: { params: { userId: string } }) => {
       </header>
 
       <main className="admin-main">
-        <section className="w-full flex flex-row justify-around space-x-4">
-        <Course userId={userId} closeModal={() => {}} />
+        <section className="w-full flex flex-col md:flex-row justify-around md:space-x-4 space-y-4 md:space-y-0">
+          <Course userId={userId} closeModal={() => {}} />
           <AddParticipant userId={userId} />
         </section>
         <section className="w-full space-y-4">
           <DataTable columns={columnsTeam} data={coursesData} />
         </section>
-        <section className="w-full flex flex-row justify-around space-x-4">
+        <section className="w-full flex flex-col md:flex-row justify-around md:space-x-4 space-y-4 md:space-y-0">
           <Platform userId={userId} closeModal={() => {}} />
           <PublishContent userId={userId} />
         </section>
