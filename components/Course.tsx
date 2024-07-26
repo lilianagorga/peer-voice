@@ -13,8 +13,7 @@ import { CourseDefaultValues } from "../constants";
 import Image from "next/image";
 import CustomFormField, { FormFieldType } from "./CustomFormField";
 import SubmitButton from "./SubmitButton";
-import { Form, FormControl } from "./ui/form";
-import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
+import { Form } from "./ui/form";
 import { CourseRegisterSchema } from "../lib/validation";
 
 interface CourseProps {
@@ -48,7 +47,7 @@ const Course: React.FC<CourseProps> = ({ userId, closeModal }) => {
   };
 
   return (
-    <>
+    <div className="flex justify-center">
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>
           <Button className="flex flex-row items-center justify-around h-36 w-96 rounded-lg shadow-md" onClick={() => console.log("Dialog Trigger Clicked")}>
@@ -96,7 +95,7 @@ const Course: React.FC<CourseProps> = ({ userId, closeModal }) => {
           </Form>
         </DialogContent>
       </Dialog>
-    </>
+    </div>
   );
 };
 

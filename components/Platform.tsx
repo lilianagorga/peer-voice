@@ -78,7 +78,7 @@ const Platform: React.FC<PlatformProps> = ({ userId, closeModal }) => {
   };
 
   return (
-    <>
+    <div className="flex justify-center">
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>
           <Button className="flex flex-row items-center justify-around h-36 w-96 rounded-lg shadow-md">
@@ -87,22 +87,22 @@ const Platform: React.FC<PlatformProps> = ({ userId, closeModal }) => {
           </Button>
         </DialogTrigger>
         <DialogOverlay />
-        <DialogContent aria-describedby="add-platform-description" className="custom-modal-width">
+        <DialogContent aria-describedby="add-platform-description" className="custom-modal-width custom-platform-modal">
           <DialogHeader>
-            <DialogTitle className="text-center header">Welcome 👋</DialogTitle>
+            <DialogTitle className="text-center header"></DialogTitle>
             <DialogDescription id="add-platform-description" className="text-center">
               Fill in the details to add a new platform.
             </DialogDescription>
           </DialogHeader>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="flex-1 space-y-8">
-              <section className="grid grid-cols-3 gap-4">
+              <section className="grid grid-cols-2 mx-4 gap-2">
                 <CustomFormField
                   fieldType={FormFieldType.INPUT}
                   control={form.control}
                   name="name"
-                  label="name for platform"
-                  placeholder="Platform's Name"
+                  label="Name for Platform"
+                  placeholder="Name"
                   iconSrc="/assets/icons/user.svg"
                   iconAlt="user"
                 />
@@ -112,19 +112,20 @@ const Platform: React.FC<PlatformProps> = ({ userId, closeModal }) => {
                   control={form.control}
                   name="content_categories"
                   label="content categories"
-                  placeholder="Enter content categories"
+                  placeholder="Categories"
                 />
-
+              </section>
+              <section className="flex justify-center text-center mx-4">
                 <CustomFormField
                   fieldType={FormFieldType.TEXTAREA}
                   control={form.control}
                   name="description"
                   label="description"
-                  placeholder="Enter a description"
+                  placeholder="Enter a description for platform"
                 />
               </section>
               <h2 className="sub-header text-center">Content</h2>
-              <section className="grid grid-cols-2 gap-4"> 
+              <section className="grid grid-cols-2 gap-4 mx-4"> 
                 <CustomFormField
                   fieldType={FormFieldType.SELECT}
                   control={form.control}
@@ -148,7 +149,7 @@ const Platform: React.FC<PlatformProps> = ({ userId, closeModal }) => {
                 />
               </section>
 
-              <section className="flex justify-center">
+              <section className="flex justify-center text-center mx-4">
                 <CustomFormField
                   fieldType={FormFieldType.SKELETON}
                   control={form.control}
@@ -168,36 +169,35 @@ const Platform: React.FC<PlatformProps> = ({ userId, closeModal }) => {
                   )}
                 />
               </section>
-              <section className="flex justify-center">
-                <div className="space-y-4 text-center">
-                  <h2 className="sub-header">Select one Platform</h2>
-                  <RadioGroup
-                    className="flex gap-4"
-                    value={form.watch("type")}
-                    onValueChange={(value) => form.setValue("type", value as Type)}
-                  >
-                    <div className="flex items-center">
-                      <RadioGroupItem value="print" id="print" />
-                      <label htmlFor="print" className="ml-2">Print</label>
-                    </div>
-                    <div className="flex items-center">
-                      <RadioGroupItem value="online" id="online" />
-                      <label htmlFor="online" className="ml-2">Online</label>
-                    </div>
-                    <div className="flex items-center">
-                      <RadioGroupItem value="audiovisual" id="audiovisual" />
-                      <label htmlFor="audiovisual" className="ml-2">Audiovisual</label>
-                    </div>
-                  </RadioGroup>
-                </div>
+              <section className="flex justify-center flex-col items-center gap-4">
+                <h2 className="sub-header">Select one Platform</h2>
+                <RadioGroup
+                  className="flex gap-4"
+                  value={form.watch("type")}
+                  onValueChange={(value) => form.setValue("type", value as Type)}
+                >
+                  <div className="flex items-center">
+                    <RadioGroupItem value="print" id="print" />
+                    <label htmlFor="print" className="ml-2">Print</label>
+                  </div>
+                  <div className="flex items-center">
+                    <RadioGroupItem value="online" id="online" />
+                    <label htmlFor="online" className="ml-2">Online</label>
+                  </div>
+                  <div className="flex items-center">
+                    <RadioGroupItem value="audiovisual" id="audiovisual" />
+                    <label htmlFor="audiovisual" className="ml-2">Audiovisual</label>
+                  </div>
+                </RadioGroup>
               </section>
-
-              <SubmitButton isLoading={isLoading}>Submit and Continue</SubmitButton>
+              <div className="mx-4 mb-4">
+                <SubmitButton isLoading={isLoading}>Submit and Continue</SubmitButton>
+              </div>
             </form>
           </Form>
         </DialogContent>
       </Dialog>
-    </>
+    </div>
   );
 };
 

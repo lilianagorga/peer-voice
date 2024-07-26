@@ -8,6 +8,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PasskeySchema } from "../../lib/validation";
 import { PasskeyInput } from "../../components/PasskeyInput";
+import { RadioGroup } from "@radix-ui/react-radio-group";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -53,36 +54,42 @@ const LoginPage = () => {
           </div>
         )}
         <FormProvider {...form}>
-          <form onSubmit={form.handleSubmit(handleLogin)}>
+          <form onSubmit={form.handleSubmit(handleLogin)} className="space-y-6">
             <PasskeyInput
               maxLength={12}
               minLength={6}
               value={form.watch("passkey")}
               onChange={(value) => form.setValue("passkey", value)}
-            />  
-            <div className="flex space-x-4">
-              <label>
-                <input
-                  type="radio"
-                  value="admin"
-                  checked={destination === "admin"}
-                  onChange={() => setDestination("admin")}
-                />
-                Admin
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  value="team"
-                  checked={destination === "team"}
-                  onChange={() => setDestination("team")}
-                />
-                Team
-              </label>
+            />
+            <div className="flex justify-center mb-6">
+              <RadioGroup className="flex justify-center space-x-4 mb-6 radio-group">
+                <label className="flex items-center space-x-2">
+                  <input
+                    type="radio"
+                    value="admin"
+                    checked={destination === "admin"}
+                    onChange={() => setDestination("admin")}
+                    className="login-radio"
+                  />
+                  <span>Admin</span>
+                </label>
+                <label className="flex items-center space-x-2 ml-4">
+                  <input
+                    type="radio"
+                    value="team"
+                    checked={destination === "team"}
+                    onChange={() => setDestination("team")}
+                    className="login-radio"
+                  />
+                  <span>Team</span>
+                </label>
+              </RadioGroup>
             </div>
-            <button type="submit" className="p-2 bg-blue-500 text-white rounded">
-              Login
-            </button>
+            <div className="flex justify-center">
+              <button type="submit" className="login-radio-button">
+                Login
+              </button>
+            </div>
           </form>
         </FormProvider>
       </div>
