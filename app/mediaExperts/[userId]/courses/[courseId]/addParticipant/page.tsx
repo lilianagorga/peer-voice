@@ -1,4 +1,4 @@
-import Success from "../../../../../../components/Success";
+import Success from "../../../../../../components/commons/Success";
 
 const AddParticipantPage = ({ params, searchParams }: { params: { userId: string; courseId: string }, searchParams: { mediaExpertId: string } }) => {
   return (

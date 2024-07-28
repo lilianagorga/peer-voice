@@ -5,16 +5,18 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import Image from "next/image";
 import { Dialog, DialogTrigger, DialogOverlay, DialogHeader, DialogTitle, DialogDescription, DialogContent } from "./ui/dialog";
-import Button from "./Button";
+import { Form } from "./ui/form";
 import { registerCourse } from "../lib/actions/course.actions";
 import { Status } from "../types/appwrite.types";
 import { CourseDefaultValues } from "../constants";
-import Image from "next/image";
-import CustomFormField, { FormFieldType } from "./CustomFormField";
-import SubmitButton from "./SubmitButton";
-import { Form } from "./ui/form";
 import { CourseRegisterSchema } from "../lib/validation";
+import CustomFormField, { FormFieldType } from "./commons/CustomFormField";
+import Button from "./commons/Button";
+import SubmitButton from "./commons/SubmitButton";
+
+
 
 interface CourseProps {
   userId: string;

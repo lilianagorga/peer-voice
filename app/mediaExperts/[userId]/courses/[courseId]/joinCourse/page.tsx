@@ -1,4 +1,4 @@
-import Success from "../../../../../../components/Success";
+import Success from "../../../../../../components/commons/Success";
 
 const JoinCoursePage = ({ params }: { params: { userId: string } }) => {
   return (

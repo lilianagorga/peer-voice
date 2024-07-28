@@ -12,7 +12,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "./ui/dialog";
-import Button from "./Button";
+import Button from "./commons/Button";
 import Image from "next/image";
 import { getMediaExperts } from "../lib/actions/media_expert.actions";
 import { ICourse } from "../types/appwrite.types";

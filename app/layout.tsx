@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { cn } from '../lib/utils';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/commons/Navbar';
 import { ThemeProvider } from "next-themes";
-import Footer from "../components/Footer";
+import Footer from "../components/commons/Footer";
 import { AuthProvider } from "../context/AuthContext";
 
 const fontSans = Plus_Jakarta_Sans({ subsets: ["latin"], weight: ['300', '400', '500', '600', '700'], variable: '--font-sans' });
