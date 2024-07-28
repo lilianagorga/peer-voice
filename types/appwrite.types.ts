@@ -22,9 +22,7 @@ export interface IMediaExpert extends Models.Document {
   bio?: string;
   specialization?: string;
   course?: ICourse[];
-  platform?: IPlatform[];
-  joinTeam: joinTeam; 
-  joinCourse(course: ICourse): void;
+  joinTeam: joinTeam;
 }
 
 export interface ICourse extends Models.Document {
@@ -35,7 +33,6 @@ export interface ICourse extends Models.Document {
   userId: string,
   course_area: string;
   media_expert?: IMediaExpert[];
-  addParticipant(person: IMediaExpert): void;
 }
 
 export interface IPlatform extends Models.Document {
@@ -44,10 +41,7 @@ export interface IPlatform extends Models.Document {
   type: Type;
   userId: string,
   description?: string;
-  content_categories: string[];
-  media_expert?: IMediaExpert;
   content: FormData | undefined;
-  publishContent(person: IMediaExpert, content: string): void;
 }
 
 export enum joinTeam {

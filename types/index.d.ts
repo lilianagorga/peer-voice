@@ -26,13 +26,11 @@ declare interface RegisterUserParams extends CreateUserParams {
   bio?: string;
   specialization?: string;
   course?: ICourse[];
-  platform?: IPlatform[];
   joinTeam: joinTeam;
 }
 
 declare interface IMediaExpert extends RegisterUserParams {
   $id: string;
-  joinCourse(course: ICourse): void;
 }
 
 declare interface ICreateCourseParams {
@@ -51,7 +49,6 @@ declare interface ICourse extends ICreateCourseParams {
   $updatedAt: string;
   $permissions: string[];
   userId: string,
-  addParticipant(person: IMediaExpert): void;
 }
 
 declare interface ICreatePlatformParams {
@@ -59,12 +56,9 @@ declare interface ICreatePlatformParams {
   name: string;
   type: Type;
   description?: string;
-  content_categories: string[];
-  media_expert?: IMediaExpert;
   content: FormData | undefined;
 }
 
 declare interface IPlatform extends ICreatePlatformParams {
   $id: string;
-  publishContent(person: IMediaExpert, content: string): void;
 }
