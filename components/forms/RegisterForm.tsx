@@ -59,7 +59,6 @@ const RegisterForm = ({ user }: { user: User }) => {
         bio: values.bio,
         specialization: values.specialization,
         identificationType: values.identificationType,
-        identificationNumber: values.identificationNumber,
         identificationDocument: values.identificationDocument ? formData : undefined,
         joinTeam: values.joinTeam,
       };
@@ -169,14 +168,6 @@ const RegisterForm = ({ user }: { user: User }) => {
               </SelectItem>
             ))}
           </CustomFormField>
-
-          <CustomFormField
-            fieldType={FormFieldType.INPUT}
-            control={form.control}
-            name="identificationNumber"
-            label="Identification Number"
-            placeholder="123456789"
-          />
 
           <CustomFormField
             fieldType={FormFieldType.SKELETON}

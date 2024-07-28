@@ -1,4 +1,4 @@
-import { joinTeam, Type, Status } from "../types/appwrite.types";
+import { joinTeam, Type } from "../types/appwrite.types";
 
 export const MediaExpertFormDefaultValues = {
   name: "",
@@ -8,7 +8,6 @@ export const MediaExpertFormDefaultValues = {
   bio: "",
   specialization: "",
   identificationType: "ID Card",
-  identificationNumber: "",
   identificationDocument: [],
   joinTeam: joinTeam.No, 
 }
@@ -21,18 +20,16 @@ export const IdentificationTypes = [
 export const PlatformDefaultValues = {
   name: "",
   description: "",
-  content_categories: [],
   type: Type.Print,
-  contentType: "test",
-  contentNumber: "",
+  contentType: "Social",
   content: [],
 }
 
 export const ContentTypes = [
-  "test",
-  "test1",
-  "test2",
-  "test3",
+  "Social",
+  "Cultural",
+  "Economic",
+  "Political",
 ];
 
 export const StatusIcon = {

@@ -57,9 +57,7 @@ const Platform: React.FC<PlatformProps> = ({ userId, closeModal }) => {
         userId: userId,
         name: values.name,
         description: values.description,
-        content_categories: values.content_categories,
         contentType: values.contentType,
-        contentNumber: values.contentNumber,
         content: values.content ? formData : undefined,
         type: values.type,
       };
@@ -106,27 +104,7 @@ const Platform: React.FC<PlatformProps> = ({ userId, closeModal }) => {
                   iconSrc="/assets/icons/user.svg"
                   iconAlt="user"
                 />
-
-                <CustomFormField
-                  fieldType={FormFieldType.ARRAY}
-                  control={form.control}
-                  name="content_categories"
-                  label="content categories"
-                  placeholder="Categories"
-                />
-              </section>
-              <section className="flex justify-center text-center mx-4">
-                <CustomFormField
-                  fieldType={FormFieldType.TEXTAREA}
-                  control={form.control}
-                  name="description"
-                  label="description"
-                  placeholder="Enter a description for platform"
-                />
-              </section>
-              <h2 className="sub-header text-center">Content</h2>
-              <section className="grid grid-cols-2 gap-4 mx-4"> 
-                <CustomFormField
+              <CustomFormField
                   fieldType={FormFieldType.SELECT}
                   control={form.control}
                   name="contentType"
@@ -139,16 +117,16 @@ const Platform: React.FC<PlatformProps> = ({ userId, closeModal }) => {
                     </SelectItem>
                   ))}
                 </CustomFormField>
-
+              </section>
+              <section className="flex justify-center text-center mx-4">
                 <CustomFormField
-                  fieldType={FormFieldType.INPUT}
+                  fieldType={FormFieldType.TEXTAREA}
                   control={form.control}
-                  name="contentNumber"
-                  label="Content Number"
-                  placeholder="123456789"
+                  name="description"
+                  label="description"
+                  placeholder="Enter a description for platform"
                 />
               </section>
-
               <section className="flex justify-center text-center mx-4">
                 <CustomFormField
                   fieldType={FormFieldType.SKELETON}

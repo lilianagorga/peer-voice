@@ -22,7 +22,6 @@ const MediaExpertBaseSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
   phone: z.string().refine((phone) => /^\+\d{10,15}$/.test(phone), "Invalid phone number"),
   identificationType: z.string().optional(),
-  identificationNumber: z.string().optional(),
   identificationDocument: z.custom<File[]>().optional(),
   interests: z.array(z.string()).optional(),
   bio: z.string().optional(),
@@ -57,8 +56,6 @@ export const PlatformSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
   type: z.enum(["print", "online", "audiovisual"], { message: "Type is required" }),
   description: z.string().optional(),
-  content_categories: z.array(z.string()).min(1, { message: "At least one content category is required" }),
   content: z.custom<File[]>().optional(),
   contentType: z.string().optional(),
-  contentNumber: z.string().optional(),
 });
