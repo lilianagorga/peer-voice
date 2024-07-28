@@ -14,7 +14,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "./ui/dialog";
-import Button from "./Button";
+import Button from "./commons/Button";
 import Image from "next/image";
 
 interface PublishContentProps {

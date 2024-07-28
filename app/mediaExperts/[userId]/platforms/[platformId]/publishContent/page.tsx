@@ -1,4 +1,4 @@
-import Success from "../../../../../../components/Success";
+import Success from "../../../../../../components/commons/Success";
 
 const PublishContentPage = ({ params }: { params: { userId: string; platformId: string } }) => {
   return (

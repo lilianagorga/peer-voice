@@ -6,20 +6,20 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import "react-datepicker/dist/react-datepicker.css";
+import "react-phone-number-input/style.css";
 import { Form, FormControl } from "./ui/form";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 import { SelectItem } from "./ui/select";
+import { Dialog, DialogTrigger, DialogOverlay, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "./ui/dialog";
 import { PlatformDefaultValues, ContentTypes } from "../constants";
 import { registerPlatform } from "../lib/actions/platform.actions";
-import "react-datepicker/dist/react-datepicker.css";
-import "react-phone-number-input/style.css";
-import CustomFormField, { FormFieldType } from "./CustomFormField";
+import CustomFormField, { FormFieldType } from "./commons/CustomFormField";
 import { FileUploader } from "./FileUploader";
-import SubmitButton from "./SubmitButton";
+import SubmitButton from "./commons/SubmitButton";
+import Button from "./commons/Button";
 import { PlatformSchema } from "../lib/validation";
 import { Type } from "../types/appwrite.types";
-import { Dialog, DialogTrigger, DialogOverlay, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "./ui/dialog";
-import Button from "./Button";
 
 interface PlatformProps {
   userId: string;

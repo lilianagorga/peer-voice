@@ -12,7 +12,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "./ui/dialog";
-import Button from "./Button";
+import Button from "./commons/Button";
 import Image from "next/image";
 
 const JoinCourse = ({ userId, onJoinCourse }: { userId: string, onJoinCourse: (courseId: string) => void }) => {

@@ -1,23 +1,20 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
 import { Form, FormControl } from "../ui/form";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { SelectItem } from "../ui/select";
 import { MediaExpertFormDefaultValues, IdentificationTypes, } from "../../constants";
 import { registerMediaExpert } from "../../lib/actions/media_expert.actions";
-
 import "react-datepicker/dist/react-datepicker.css";
 import "react-phone-number-input/style.css";
-import CustomFormField, { FormFieldType } from "../CustomFormField";
+import CustomFormField, { FormFieldType } from "../commons/CustomFormField";
 import { FileUploader } from "../FileUploader";
-import SubmitButton from "../SubmitButton";
+import SubmitButton from "../commons/SubmitButton";
 import { MediaExpertSchema } from "../../lib/validation";
 import { joinTeam } from "../../types/appwrite.types";
 
