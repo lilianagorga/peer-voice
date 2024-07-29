@@ -30,6 +30,7 @@ const Platform: React.FC<PlatformProps> = ({ userId, closeModal }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [hasDescription, setHasDescription] = useState(false);
 
   const form = useForm<z.infer<typeof PlatformSchema>>({
     resolver: zodResolver(PlatformSchema),
@@ -85,7 +86,7 @@ const Platform: React.FC<PlatformProps> = ({ userId, closeModal }) => {
           </Button>
         </DialogTrigger>
         <DialogOverlay />
-        <DialogContent aria-describedby="add-platform-description" className="custom-modal-width custom-platform-modal">
+        <DialogContent aria-describedby={hasDescription ? "add-platform-description" : undefined} className="custom-modal-width custom-platform-modal">
           <DialogHeader>
             <DialogTitle className="text-center header"></DialogTitle>
             <DialogDescription id="add-platform-description" className="text-center">

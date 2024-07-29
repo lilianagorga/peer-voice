@@ -5,34 +5,6 @@ import { DATABASE_ID, PLATFORM_COLLECTION_ID, databases, storage, BUCKET_ID, END
 import { IPlatform } from "../../types/appwrite.types";
 import { parseStringify } from "../utils";
 
-export const createPlatform = async (platform: ICreatePlatformParams, userId: string) => {
-  try {
-    const newPlatform = await databases.createDocument(
-      DATABASE_ID!,
-      PLATFORM_COLLECTION_ID!,
-      ID.unique(),
-      { ...platform, userId },
-    );
-    return parseStringify(newPlatform);
-  } catch (error) {
-    console.error("An error occurred while creating platform:", error);
-  }
-};
-
-export const getPlatform = async (platformId: string): Promise<IPlatform | null> => {
-  try {
-    const platform = await databases.getDocument(
-      DATABASE_ID!,
-      PLATFORM_COLLECTION_ID!,
-      platformId
-    ) as unknown as IPlatform;
-    return parseStringify(platform);
-  } catch (error) {
-    console.error("An error occurred while retrieving the platform:", error);
-    return null;
-  }
-};
-
 export const getPlatforms = async (): Promise<IPlatform[]> => {
   try {
     const response = await databases.listDocuments(
@@ -59,20 +31,6 @@ export const updatePlatform = async (platformId: string, updatedData: any): Prom
   } catch (error) {
     console.error("An error occurred while updating the platform:", error);
     return null;
-  }
-};
-
-export const deletePlatform = async (platformId: string): Promise<boolean> => {
-  try {
-    await databases.deleteDocument(
-      DATABASE_ID!,
-      PLATFORM_COLLECTION_ID!,
-      platformId
-    );
-    return true;
-  } catch (error) {
-    console.error("An error occurred while deleting the platform:", error);
-    return false;
   }
 };
 

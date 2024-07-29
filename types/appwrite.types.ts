@@ -5,7 +5,7 @@ export interface PasskeyMapDocument extends Models.Document {
   userId: string;
 }
 
-export interface CourseParticipants extends Models.Document {
+export interface CourseJoined extends Models.Document {
   courseId: string;
   mediaExpertId: string;
   status: Status;

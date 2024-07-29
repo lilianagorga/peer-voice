@@ -24,9 +24,7 @@ const JoinCourse = ({ userId, onJoinCourse }: { userId: string, onJoinCourse: (c
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        console.log("Fetching courses...");
         const coursesList = await getCourses();
-        console.log("Courses fetched:", coursesList);
         setCourses(coursesList);
       } catch (error) {
         console.error("Error fetching courses:", error);
@@ -37,15 +35,12 @@ const JoinCourse = ({ userId, onJoinCourse }: { userId: string, onJoinCourse: (c
   }, []);
 
   const handleJoinCourse = async () => {
-    console.log("Selected Course:", selectedCourse);
-    console.log("User ID:", userId);
     if (!selectedCourse) {
       alert("Please select a course first");
       return;
     }
     try {
       const result = await joinCourse(selectedCourse, userId);
-      console.log("Join course result:", result);
       if (result?.message === "Already joined") {
         alert("You are already a participant in this course.");
       } else {
@@ -68,7 +63,7 @@ const JoinCourse = ({ userId, onJoinCourse }: { userId: string, onJoinCourse: (c
           </Button>
         </DialogTrigger>
         <DialogOverlay />
-        <DialogContent aria-describedby="join-course-description">
+        <DialogContent aria-describedby={selectedCourse ? "join-course-description" : undefined}>
           <DialogHeader>
             <DialogTitle>Join a Course</DialogTitle>
             <DialogDescription id="join-course-description">

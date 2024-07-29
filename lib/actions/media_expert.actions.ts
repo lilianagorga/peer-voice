@@ -130,29 +130,6 @@ export const registerMediaExpert = async ({
   }
 };
 
-export const getMediaExpert = async (userId: string) => {
-  try {
-    const mediaExpert = await databases.listDocuments(
-      DATABASE_ID!,
-      MEDIA_EXPERT_COLLECTION_ID!,
-      [Query.equal("userId", [userId])]
-    );
-
-    
-    if (!mediaExpert.documents.length) {
-      console.warn("No media expert found for userId:", userId);
-      return null;
-    }
-    return parseStringify(mediaExpert.documents[0]);
-  } catch (error) {
-    console.error(
-      "An error occurred while retrieving the media expert details:",
-      error
-    );
-    return null;
-  }
-};
-
 export const getMediaExperts = async (): Promise<IMediaExpert[]> => {
   try {
     const response = await databases.listDocuments(
