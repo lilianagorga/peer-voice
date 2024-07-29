@@ -15,9 +15,7 @@ const AdminPage = ({ params: { userId } }: SearchParamProps) => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        console.log("Fetching courses...");
         const data = await getCoursesForMediaExpert(userId);
-        console.log("Courses fetched:", data);
         setCoursesData(data);
       } catch (error) {
         console.error("Error fetching courses:", error);
@@ -30,7 +28,6 @@ const AdminPage = ({ params: { userId } }: SearchParamProps) => {
 
   const handleStatusChange = async (courseId: string, newStatus: Status) => {
     try {
-      console.log(`handleStatusChange called with courseId: ${courseId}, newStatus: ${newStatus}`);
       await updateJoinedCourseStatus(courseId, userId, newStatus);
   
       const updatedCourses = coursesData.map(course => 
@@ -45,9 +42,7 @@ const AdminPage = ({ params: { userId } }: SearchParamProps) => {
   const handleJoinCourse = async (courseId: string) => {
     try {
       setLoading(true);
-      console.log(`Joining course ${courseId} for user ${userId}`);
       await joinCourse(courseId, userId);
-      console.log(`Course joined, fetching updated courses for user ${userId}`);
       const updatedCourses = await getCoursesForMediaExpert(userId);
       setCoursesData(updatedCourses);
       console.log(`Updated courses fetched: `, updatedCourses);

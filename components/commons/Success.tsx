@@ -29,6 +29,7 @@ const Success = ({
             width={280}
             alt={imageAlt}
             unoptimized
+            priority
           />
           <h2 className="header mb-6 max-w-[600px] text-center">{title}</h2>
           <p>{description}</p>
@@ -37,8 +38,6 @@ const Success = ({
         <Button variant="outline" className="shad-primary-btn" asChild>
           <Link href={buttonLink}>{buttonText}</Link>
         </Button>
-
-        <p className="copyright">© 2024 Peer Voice</p>
       </div>
     </div>
   );

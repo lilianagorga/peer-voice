@@ -21,10 +21,8 @@ export enum FormFieldType {
   TEXTAREA = "textarea",
   PHONE_INPUT = "phoneInput",
   CHECKBOX = "checkbox",
-  DATE_PICKER = "datePicker",
   SELECT = "select",
   SKELETON = "skeleton",
-  PASSWORD = "password",
   ARRAY = "array"
 }
 
@@ -55,7 +53,7 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
               height={24}
               width={24}
               alt={props.iconAlt || "icon"}
-              className="ml-2"
+              className="ml-2 h-6 w-6 mt-3"
             />
           )}
           <FormControl>
@@ -107,28 +105,6 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
           </div>
         </FormControl>
       );
-    case FormFieldType.DATE_PICKER:
-      return (
-        <div className="flex rounded-md border border-dark-500 bg-dark-400">
-          <Image
-            src="/assets/icons/calendar.svg"
-            height={24}
-            width={24}
-            alt="user"
-            className="ml-2"
-          />
-          <FormControl>
-            <ReactDatePicker
-              showTimeSelect={props.showTimeSelect ?? false}
-              selected={field.value}
-              onChange={(date: Date | null) => field.onChange(date)}
-              timeInputLabel="Time:"
-              dateFormat={props.dateFormat ?? "MM/dd/yyyy"}
-              wrapperClassName="date-picker"
-            />
-          </FormControl>
-        </div>
-      );
     case FormFieldType.SELECT:
       return (
         <FormControl>
@@ -144,17 +120,6 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
           </Select>
         </FormControl>
       );
-    case FormFieldType.PASSWORD:
-      return (
-        <FormControl>
-          <Input
-            type="password"
-            placeholder={props.placeholder}
-            {...field}
-            className="shad-input"
-          />
-        </FormControl>
-      );  
     case FormFieldType.ARRAY:
       return (
         <FormControl>

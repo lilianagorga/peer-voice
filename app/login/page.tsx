@@ -55,12 +55,17 @@ const LoginPage = () => {
         )}
         <FormProvider {...form}>
           <form onSubmit={form.handleSubmit(handleLogin)} className="space-y-6">
-            <PasskeyInput
-              maxLength={12}
-              minLength={6}
-              value={form.watch("passkey")}
-              onChange={(value) => form.setValue("passkey", value)}
-            />
+            <div className="flex flex-col items-center">
+              <label htmlFor="passkey" className="block text-lg font-bold text-dark-700 mb-2">
+                Passkey
+              </label>
+              <PasskeyInput
+                maxLength={15}
+                minLength={6}
+                value={form.watch("passkey")}
+                onChange={(value) => form.setValue("passkey", value)}
+              />
+            </div>
             <div className="flex justify-center mb-6">
               <RadioGroup className="flex justify-center space-x-4 mb-6 radio-group">
                 <label className="flex items-center space-x-2">

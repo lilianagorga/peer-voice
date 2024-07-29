@@ -16,8 +16,6 @@ import CustomFormField, { FormFieldType } from "./commons/CustomFormField";
 import Button from "./commons/Button";
 import SubmitButton from "./commons/SubmitButton";
 
-
-
 interface CourseProps {
   userId: string;
   closeModal: () => void;
@@ -27,6 +25,7 @@ const Course: React.FC<CourseProps> = ({ userId, closeModal }) => {
   const router = useRouter();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [hasDescription, setHasDescription] = useState(false);
   const form = useForm<z.infer<typeof CourseRegisterSchema>>({
     defaultValues: CourseDefaultValues,
     resolver: zodResolver(CourseRegisterSchema),
@@ -35,11 +34,9 @@ const Course: React.FC<CourseProps> = ({ userId, closeModal }) => {
   const onSubmit = async (values: z.infer<typeof CourseRegisterSchema>) => {
     setIsLoading(true);
     const courseData = { ...values, userId, status: Status.Pending };
-    console.log("Form data:", courseData);
 
     try {
       const response = await registerCourse(courseData);
-      console.log("Course registered:", response);
       closeModal();
       router.push(`/mediaExperts/${userId}/courses`);
     } catch (error) {
@@ -58,7 +55,7 @@ const Course: React.FC<CourseProps> = ({ userId, closeModal }) => {
           </Button>
         </DialogTrigger>
         <DialogOverlay />
-        <DialogContent aria-describedby="add-course-description" className="custom-modal-width">
+        <DialogContent aria-describedby={hasDescription ? "add-course-description" : undefined} className="custom-modal-width">
           <DialogHeader>
             <DialogTitle className="text-center header">Add a New Course</DialogTitle>
             <DialogDescription id="add-course-description" className="text-center">

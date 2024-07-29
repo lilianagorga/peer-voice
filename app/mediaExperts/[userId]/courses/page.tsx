@@ -1,14 +1,13 @@
-import AddParticipant from "../../../../components/AddParticipant";
+import Success from "../../../../components/commons/Success";
 
-const CoursesPage = ({ params }: { params: { userId: string } }) => {
-  const { userId } = params;
-
-
+const CoursesPage = ({ params, searchParams }: { params: { userId: string; courseId: string }, searchParams: { mediaExpertId: string } }) => {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-8">
-      <h1 className="text-4xl font-bold mb-8">Course Page</h1>
-      <AddParticipant userId={userId} />
-    </main>
+    <Success
+    title="Course Added Successfully"
+    description="Course has been successfully added."
+    buttonText="Go to Dashboard"
+    buttonLink={`/mediaExperts/${params.userId}/team`}
+  />
   );
 };
 

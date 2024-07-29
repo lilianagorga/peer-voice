@@ -1,38 +1,22 @@
 "use server";
 
 import { ID, Query } from "node-appwrite";
-import { DATABASE_ID, COURSE_COLLECTION_ID, databases, COURSE_PARTICIPANTS_COLLECTION_ID } from "../appwrite.config";
+import { DATABASE_ID, COURSE_COLLECTION_ID, databases, COURSE_JOINED_COLLECTION_ID, } from "../appwrite.config";
 import { parseStringify } from "../utils";
-import { CourseParticipants, Status, ICourse } from "../../types/appwrite.types";
+import { CourseJoined, Status, ICourse } from "../../types/appwrite.types";
 
 export const registerCourse = async ({ ...course }: ICreateCourseParams) => {
   try {
-    console.log("Attempting to create course with data:", course);
     const newCourse = await databases.createDocument(
       DATABASE_ID!,
       COURSE_COLLECTION_ID!,
       ID.unique(),
       { ...course }
     );
-    console.log("Course created successfully:", newCourse);
     return parseStringify(newCourse);
   } catch (error) {
     console.error("An error occurred while creating course:", error);
     throw error;
-  }
-};
-
-export const getCourse = async (courseId: string): Promise<ICourse | null> => {
-  try {
-    const course = await databases.getDocument(
-      DATABASE_ID!,
-      COURSE_COLLECTION_ID!,
-      courseId
-    ) as unknown as ICourse;
-    return parseStringify(course);
-  } catch (error) {
-    console.error("An error occurred while retrieving the course:", error);
-    return null;
   }
 };
 
@@ -102,13 +86,7 @@ export const updateCourse = async (courseId: string, mediaExpertId: string): Pro
       COURSE_COLLECTION_ID!,
       courseId
     );
-
-    console.log("Current course data:", course);
-
     const updatedMediaExperts = course.media_expert ? [...course.media_expert, mediaExpertId] : [mediaExpertId];
-
-    console.log("Updated media experts:", updatedMediaExperts);
-
     const updatedCourse = await databases.updateDocument<ICourse>(
       DATABASE_ID!,
       COURSE_COLLECTION_ID!,
@@ -117,8 +95,6 @@ export const updateCourse = async (courseId: string, mediaExpertId: string): Pro
         media_expert: updatedMediaExperts,
       }
     );
-
-    console.log("Course updated successfully");
     return updatedCourse;
   } catch (error) {
     console.error("Error updating course:", error);
@@ -130,7 +106,7 @@ export const joinCourse = async (courseId: string, mediaExpertId: string): Promi
   try {
     const newParticipant = await databases.createDocument(
       DATABASE_ID!,
-      COURSE_PARTICIPANTS_COLLECTION_ID!,
+      COURSE_JOINED_COLLECTION_ID!,
       ID.unique(),
       { courseId, mediaExpertId, status: Status.Scheduled }
     );
@@ -147,9 +123,9 @@ export const getCoursesForMediaExpert = async (mediaExpertId: string): Promise<I
   }
 
   try {
-    const participantCourses = await databases.listDocuments<CourseParticipants>(
+    const participantCourses = await databases.listDocuments<CourseJoined>(
       DATABASE_ID!,
-      COURSE_PARTICIPANTS_COLLECTION_ID!,
+      COURSE_JOINED_COLLECTION_ID!,
       [Query.equal("mediaExpertId", mediaExpertId)]
     );
 
@@ -183,9 +159,9 @@ export const getCoursesForMediaExpert = async (mediaExpertId: string): Promise<I
 
 export const updateJoinedCourseStatus = async (courseId: string, mediaExpertId: string, newStatus: Status) => {
   try {
-    const participantCourses = await databases.listDocuments<CourseParticipants>(
+    const participantCourses = await databases.listDocuments<CourseJoined>(
       DATABASE_ID!,
-      COURSE_PARTICIPANTS_COLLECTION_ID!,
+      COURSE_JOINED_COLLECTION_ID!,
       [Query.equal("courseId", courseId), Query.equal("mediaExpertId", mediaExpertId)]
     );
 
@@ -197,7 +173,7 @@ export const updateJoinedCourseStatus = async (courseId: string, mediaExpertId: 
 
     const updatedParticipant = await databases.updateDocument(
       DATABASE_ID!,
-      COURSE_PARTICIPANTS_COLLECTION_ID!,
+      COURSE_JOINED_COLLECTION_ID!,
       participantCourseId,
       { status: newStatus }
     );

@@ -1,13 +1,15 @@
-import PublishContent from '../../../../components/PublishContent';
+import Success from "../../../../components/commons/Success";
 
-const PlatformPage = ({ params }: { params: { userId: string } }) => {
-  const { userId } = params;
 
+const PlatformPage = ({ params, searchParams }: { params: { userId: string; courseId: string }, searchParams: { mediaExpertId: string } }) => {
   return (
-    <div className='m-20'>
-      <PublishContent userId={userId} />
-    </div>
+    <Success
+    title="Platform Added Successfully"
+    description="Platform has been successfully added."
+    buttonText="Go to Dashboard"
+    buttonLink={`/mediaExperts/${params.userId}/team`}
+  />
   );
-}
+};
 
 export default PlatformPage;

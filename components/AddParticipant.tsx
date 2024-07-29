@@ -43,11 +43,9 @@ const Course: React.FC<CourseProps> = ({ userId }) => {
       alert("Please select a media expert first");
       return;
     }
-    console.log("Adding participant:", { userId, courseId, selectedMediaExpert });
     try {
       await updateCourse(courseId, selectedMediaExpert);
       const updatedCourses = await getCourses();
-      console.log("Updated courses data:", updatedCourses);
       setCourses(updatedCourses);
 
       router.push(`/mediaExperts/${userId}/courses/${courseId}/addParticipant?mediaExpertId=${selectedMediaExpert}`);
@@ -66,7 +64,7 @@ const Course: React.FC<CourseProps> = ({ userId }) => {
           </Button>
         </DialogTrigger>
         <DialogOverlay />
-        <DialogContent aria-describedby="add-participant-description">
+        <DialogContent aria-describedby={selectedCourse ? "add-participant-description" : undefined}>
           <DialogHeader>
             <DialogTitle>Add Participant to Course</DialogTitle>
             <DialogDescription id="add-participant-description">

@@ -3,7 +3,7 @@ import { z } from "zod";
 export const PasskeySchema = z.object({
   passkey: z.string()
     .min(6, "Passkey must be at least 6 characters long")
-    .max(12, "Passkey must be at most 20 characters long")
+    .max(15, "Passkey must be at most 20 characters long")
     .regex(/[a-z]/, "Passkey must contain at least one lowercase letter")
     .regex(/[A-Z]/, "Passkey must contain at least one uppercase letter")
     .regex(/[0-9]/, "Passkey must contain at least one number")

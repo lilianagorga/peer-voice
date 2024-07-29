@@ -10,10 +10,10 @@ const Home = ({ searchParams }: SearchParamProps) => {
       <Image 
         src="/assets/images/home.jpg" 
         alt="Background Image" 
-        layout="fill" 
-        objectFit="cover" 
-        quality={100} 
+        fill
+        quality={100}
         className="h-full w-full object-cover opacity-20"
+        priority
       />
     </div>
     <div className="relative z-10 flex-1 mb-12 lg:mb-24 lg:mr-20">

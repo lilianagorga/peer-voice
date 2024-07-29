@@ -29,6 +29,7 @@ const PublishContent: React.FC<PublishContentProps> = ({ userId }) => {
   const [selectedMediaExpert, setSelectedMediaExpert] = useState<string>("");
   const [content, setContent] = useState<File[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [hasDescription, setHasDescription] = useState(false);
 
   useEffect(() => {
     const fetchPlatformsAndMediaExperts = async () => {
@@ -75,7 +76,7 @@ const PublishContent: React.FC<PublishContentProps> = ({ userId }) => {
           </Button>
         </DialogTrigger>
         <DialogOverlay />
-        <DialogContent aria-describedby="publish-content-description" className="custom-modal-width">
+        <DialogContent aria-describedby={hasDescription ? "publish-content-description" : undefined} className="custom-modal-width">
           <DialogHeader>
             <DialogTitle className="text-center header">Publish Content</DialogTitle>
             <DialogDescription id="publish-content-description" className="text-center">
