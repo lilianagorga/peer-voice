@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { columnsTeam } from "../../../../components/table/columnsTeam";
+import { columnsCourse } from "../../../../components/table/columnsCourse";
+import { columnsPlatform } from "../../../../components/table/columnsPlatform";
 import { DataTable } from "../../../../components/table/DataTable";
 import { getCourses } from "../../../../lib/actions/course.actions";
 import { getMediaExperts } from "../../../../lib/actions/media_expert.actions";
-import { ICourse } from "../../../../types/appwrite.types";
+import { getPlatforms } from "../../../../lib/actions/platform.actions";
+import { ICourse, IPlatform } from "../../../../types/appwrite.types";
 import AddParticipant from "../../../../components/AddParticipant";
 import Course from "../../../../components/Course";
 import Platform from "../../../../components/Platform";
@@ -15,17 +17,20 @@ const TeamPage = ({ params }: { params: { userId: string } }) => {
   const { userId } = params;
   const [coursesData, setCoursesData] = useState<ICourse[]>([]);
   const [mediaExperts, setMediaExperts] = useState<IMediaExpert[]>([]);
+  const [platformsData, setPlatformsData] = useState<IPlatform[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [courses, mediaExperts] = await Promise.all([
+        const [courses, mediaExperts, platforms] = await Promise.all([
           getCourses(),
           getMediaExperts(),
+          getPlatforms(),
         ]);
         setCoursesData(courses);
         setMediaExperts(mediaExperts);
+        setPlatformsData(platforms);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -51,11 +56,14 @@ const TeamPage = ({ params }: { params: { userId: string } }) => {
           <AddParticipant userId={userId} />
         </section>
         <section className="w-full space-y-4">
-          <DataTable columns={columnsTeam} data={coursesData} />
+          <DataTable columns={columnsCourse} data={coursesData} />
         </section>
         <section className="w-full flex flex-col md:flex-row justify-around md:space-x-4 space-y-4 md:space-y-0">
           <Platform userId={userId} closeModal={() => {}} />
           <PublishContent userId={userId} />
+        </section>
+        <section className="w-full space-y-4">
+          <DataTable columns={columnsPlatform} data={platformsData} />
         </section>
       </main>
     </div>

@@ -4,7 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { formatDateTime } from "../../lib/utils";
 import { ICourse } from "../../types/appwrite.types";
 
-export const columnsTeam: ColumnDef<ICourse, unknown>[] = [
+export const columnsCourse: ColumnDef<ICourse, unknown>[] = [
   {
     header: "#",
     accessorFn: (row, i) => i + 1,
