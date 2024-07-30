@@ -21,7 +21,7 @@ interface CourseProps {
   userId: string;
 }
 
-const Course: React.FC<CourseProps> = ({ userId }) => {
+const AddParticipant: React.FC<CourseProps> = ({ userId }) => {
   const router = useRouter();
   const [courses, setCourses] = useState<ICourse[]>([]);
   const [mediaExperts, setMediaExperts] = useState<IMediaExpert[]>([]);
@@ -106,4 +106,4 @@ const Course: React.FC<CourseProps> = ({ userId }) => {
   );
 };
 
-export default Course;
+export default AddParticipant;

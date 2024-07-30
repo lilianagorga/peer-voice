@@ -45,7 +45,6 @@ const AdminPage = ({ params: { userId } }: SearchParamProps) => {
       await joinCourse(courseId, userId);
       const updatedCourses = await getCoursesForMediaExpert(userId);
       setCoursesData(updatedCourses);
-      console.log(`Updated courses fetched: `, updatedCourses);
     } catch (error) {
       console.error("Error during course join: ", error);
     } finally {

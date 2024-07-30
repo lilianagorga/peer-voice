@@ -20,20 +20,6 @@ export const registerCourse = async ({ ...course }: ICreateCourseParams) => {
   }
 };
 
-// export const getCourses = async (): Promise<ICourse[]> => {
-//   try {
-//     const response = await databases.listDocuments(
-//       DATABASE_ID!,
-//       COURSE_COLLECTION_ID!,
-//       []
-//     );
-//     return parseStringify(response.documents);
-//   } catch (error) {
-//     console.error("An error occurred while retrieving courses:", error);
-//     return [];
-//   }
-// };
-
 export const getCourses = async (): Promise<ICourse[]> => {
   try {
     const response = await databases.listDocuments(
@@ -108,12 +94,19 @@ export const getRecentCourseList = async () => {
 
 export const updateCourse = async (courseId: string, mediaExpertId: string): Promise<ICourse | null> => {
   try {
+    await databases.createDocument(
+      DATABASE_ID!,
+      COURSE_JOINED_COLLECTION_ID!,
+      ID.unique(),
+      { courseId, mediaExpertId, status: Status.Scheduled }
+    );
     const course = await databases.getDocument<ICourse>(
       DATABASE_ID!,
       COURSE_COLLECTION_ID!,
       courseId
     );
-    const updatedMediaExperts = course.media_expert ? [...course.media_expert, mediaExpertId] : [mediaExpertId];
+
+    const updatedMediaExperts = course.media_expert ? [...course.media_expert, { $id: mediaExpertId }] : [{ $id: mediaExpertId }];
     const updatedCourse = await databases.updateDocument<ICourse>(
       DATABASE_ID!,
       COURSE_COLLECTION_ID!,
@@ -122,6 +115,7 @@ export const updateCourse = async (courseId: string, mediaExpertId: string): Pro
         media_expert: updatedMediaExperts,
       }
     );
+
     return updatedCourse;
   } catch (error) {
     console.error("Error updating course:", error);
