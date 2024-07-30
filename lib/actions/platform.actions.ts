@@ -74,33 +74,37 @@ export const publishContent = async (platformId: string, mediaExpertId: string, 
   try {
     let file;
     if (content) {
-      const inputFile =
-        InputFile.fromBlob(
-          content.get("blobFile") as Blob,
-          content.get("fileName") as string
-        );
+      const inputFile = InputFile.fromBlob(
+        content.get("blobFile") as Blob,
+        content.get("fileName") as string
+      );
 
       file = await storage.createFile(BUCKET_ID!, ID.unique(), inputFile);
     }
 
-    const platform = await databases.getDocument(
+    const platform = await databases.getDocument<IPlatform>(
       DATABASE_ID!,
       PLATFORM_COLLECTION_ID!,
       platformId
-    ) as IPlatform;
+    );
 
+    let updatedContentId = platform.contentId ? platform.contentId : "";
+    let updatedContentUrl = platform.contentUrl ? platform.contentUrl : "";
 
-    const updatedPlatform = await databases.updateDocument(
+    if (file?.$id) {
+      updatedContentId += `,${file.$id}`;
+      updatedContentUrl += `,${ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${file.$id}/view?project=${PROJECT_ID}`;
+    }
+
+    const updatedPlatform = await databases.updateDocument<IPlatform>(
       DATABASE_ID!,
       PLATFORM_COLLECTION_ID!,
       platformId,
       {
-        contentId: file?.$id ? file.$id : null,
-        contentUrl: file?.$id
-          ? `${ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${file.$id}/view?project=${PROJECT_ID}`
-          : null,
-          userId: mediaExpertId,
-          description: platform.description,
+        contentId: updatedContentId,
+        contentUrl: updatedContentUrl,
+        userId: mediaExpertId,
+        description: platform.description || "",
       }
     );
 

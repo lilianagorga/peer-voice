@@ -57,6 +57,8 @@ declare interface ICreatePlatformParams {
   type: Type;
   description?: string;
   content: FormData | undefined;
+  contentUrl?: string;
+  contentId?: string;
 }
 
 declare interface IPlatform extends ICreatePlatformParams {

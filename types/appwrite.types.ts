@@ -42,6 +42,8 @@ export interface IPlatform extends Models.Document {
   userId: string,
   description?: string;
   content: FormData | undefined;
+  contentUrl?: string;
+  contentId?: string;
 }
 
 export enum joinTeam {

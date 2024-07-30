@@ -1,9 +1,9 @@
 "use server";
 
 import { ID, Query } from "node-appwrite";
-import { DATABASE_ID, COURSE_COLLECTION_ID, databases, COURSE_JOINED_COLLECTION_ID, } from "../appwrite.config";
+import { DATABASE_ID, COURSE_COLLECTION_ID, databases, COURSE_JOINED_COLLECTION_ID, MEDIA_EXPERT_COLLECTION_ID, } from "../appwrite.config";
 import { parseStringify } from "../utils";
-import { CourseJoined, Status, ICourse } from "../../types/appwrite.types";
+import { CourseJoined, Status, ICourse, IMediaExpert } from "../../types/appwrite.types";
 
 export const registerCourse = async ({ ...course }: ICreateCourseParams) => {
   try {
@@ -20,6 +20,20 @@ export const registerCourse = async ({ ...course }: ICreateCourseParams) => {
   }
 };
 
+// export const getCourses = async (): Promise<ICourse[]> => {
+//   try {
+//     const response = await databases.listDocuments(
+//       DATABASE_ID!,
+//       COURSE_COLLECTION_ID!,
+//       []
+//     );
+//     return parseStringify(response.documents);
+//   } catch (error) {
+//     console.error("An error occurred while retrieving courses:", error);
+//     return [];
+//   }
+// };
+
 export const getCourses = async (): Promise<ICourse[]> => {
   try {
     const response = await databases.listDocuments(
@@ -27,13 +41,26 @@ export const getCourses = async (): Promise<ICourse[]> => {
       COURSE_COLLECTION_ID!,
       []
     );
-    return parseStringify(response.documents);
+
+    const courses = response.documents as ICourse[];
+
+    for (let course of courses) {
+      const participants = await databases.listDocuments(
+        DATABASE_ID!,
+        COURSE_JOINED_COLLECTION_ID!,
+        [Query.equal("courseId", course.$id), Query.equal("status", Status.Scheduled)]
+      );
+
+      const participantIds = participants.documents.map((participant: any) => participant.mediaExpertId);
+      course.media_expert = participantIds.map(id => ({ $id: id })) as IMediaExpert[];
+    }
+
+    return parseStringify(courses);
   } catch (error) {
     console.error("An error occurred while retrieving courses:", error);
     return [];
   }
 };
-
 
 export const getRecentCourseList = async () => {
   try {
