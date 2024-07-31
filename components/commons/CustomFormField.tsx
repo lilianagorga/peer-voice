@@ -1,6 +1,5 @@
 import { Control } from "react-hook-form";
 import Image from "next/image";
-import ReactDatePicker from "react-datepicker";
 import PhoneInput from "react-phone-number-input";
 import { E164Number } from "libphonenumber-js/core";
 
@@ -15,11 +14,13 @@ import {
 import { Input } from "../ui/input";
 import { Select, SelectContent, SelectTrigger, SelectValue } from "../ui/select";
 import { Textarea } from "../ui/textarea";
+import PasswordInput from "../PasswordInput";
 
 export enum FormFieldType {
   INPUT = "input",
   TEXTAREA = "textarea",
   PHONE_INPUT = "phoneInput",
+  PASSWORD_INPUT = "passwordInput",
   CHECKBOX = "checkbox",
   SELECT = "select",
   SKELETON = "skeleton",
@@ -39,6 +40,8 @@ interface CustomProps {
   children?: React.ReactNode;
   renderSkeleton?: (field: any) => React.ReactNode;
   fieldType: FormFieldType;
+  maxLength?: number;
+  minLength?: number;
   onChange?: (e: any) => void;
 }
 
@@ -76,20 +79,31 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
           />
         </FormControl>
       );
-      case FormFieldType.PHONE_INPUT:
-        return (
-          <FormControl>
-            <PhoneInput
-              defaultCountry="IT"
-              placeholder={props.placeholder}
-              international
-              withCountryCallingCode
-              value={field.value as E164Number | undefined}
-              onChange={field.onChange}
-              className="input-phone"
-            />
-          </FormControl>
-        );
+    case FormFieldType.PHONE_INPUT:
+      return (
+        <FormControl>
+          <PhoneInput
+            defaultCountry="IT"
+            placeholder={props.placeholder}
+            international
+            withCountryCallingCode
+            value={field.value as E164Number | undefined}
+            onChange={field.onChange}
+            className="input-phone"
+          />
+        </FormControl>
+      );
+    case FormFieldType.PASSWORD_INPUT:
+      return (
+        <PasswordInput
+          value={field.value}
+          onChange={field.onChange}
+          maxLength={props.maxLength ?? 50}
+          minLength={props.minLength ?? 6}
+          iconSrc={props.iconSrc}
+          iconAlt={props.iconAlt}
+        />
+      );
     case FormFieldType.CHECKBOX:
       return (
         <FormControl>
@@ -152,7 +166,6 @@ const CustomFormField = (props: CustomProps) => {
             <FormLabel className="shad-input-label">{label}</FormLabel>
           )}
           <RenderInput field={field} props={props} />
-
           <FormMessage className="shad-error" />
         </FormItem>
       )}

@@ -22,7 +22,6 @@ export interface IMediaExpert extends Models.Document {
   bio?: string;
   specialization?: string;
   course?: ICourse[];
-  joinTeam: joinTeam;
 }
 
 export interface ICourse extends Models.Document {
@@ -44,11 +43,6 @@ export interface IPlatform extends Models.Document {
   content: FormData | undefined;
   contentUrl?: string;
   contentId?: string;
-}
-
-export enum joinTeam {
-  Yes = "yes",
-  No = "no",
 }
 
 export enum Type {

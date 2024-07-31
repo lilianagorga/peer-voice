@@ -165,7 +165,6 @@ Peer Voice is a platform dedicated to raising awareness about gender equality th
       bio?: string;
       specialization?: string;
       course?: ICourse[];
-      joinTeam: joinTeam;
     }
 
     export interface ICourse extends Models.Document {
@@ -185,11 +184,6 @@ Peer Voice is a platform dedicated to raising awareness about gender equality th
       content: FormData | undefined;
       contentUrl?: string;
       contentId?: string;
-    }
-
-    export enum joinTeam {
-      Yes = "yes",
-      No = "no",
     }
 
     export enum Type {
