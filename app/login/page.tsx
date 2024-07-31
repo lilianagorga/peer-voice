@@ -7,7 +7,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PasswordSchema } from "../../lib/validation";
-import { PasswordInput } from "../../components/PasswordInput";
+import CustomFormField, { FormFieldType } from "../../components/commons/CustomFormField";
 import { RadioGroup } from "@radix-ui/react-radio-group";
 
 const LoginPage = () => {
@@ -56,14 +56,16 @@ const LoginPage = () => {
         <FormProvider {...form}>
           <form onSubmit={form.handleSubmit(handleLogin)} className="space-y-6">
             <div className="flex flex-col items-center">
-              <label htmlFor="password" className="block text-lg font-bold text-dark-700 mb-2">
-                Password
-              </label>
-              <PasswordInput
-                maxLength={20}
+              <CustomFormField
+                fieldType={FormFieldType.PASSWORD_INPUT}
+                control={form.control}
+                name="password"
+                label="Password"
+                placeholder="Enter your password"
+                iconSrc="/assets/icons/lock.svg"
+                iconAlt="lock"
+                maxLength={50}
                 minLength={6}
-                value={form.watch("password")}
-                onChange={(value) => form.setValue("password", value)}
               />
             </div>
             <div className="flex justify-center mb-6">

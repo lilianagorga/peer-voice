@@ -16,7 +16,6 @@ import CustomFormField, { FormFieldType } from "../commons/CustomFormField";
 import { FileUploader } from "../FileUploader";
 import SubmitButton from "../commons/SubmitButton";
 import { MediaExpertSchema } from "../../lib/validation";
-import { joinTeam } from "../../types/appwrite.types";
 
 const RegisterForm = ({ user }: { user: User }) => {
   const router = useRouter();
@@ -60,17 +59,12 @@ const RegisterForm = ({ user }: { user: User }) => {
         specialization: values.specialization,
         identificationType: values.identificationType,
         identificationDocument: values.identificationDocument ? formData : undefined,
-        joinTeam: values.joinTeam,
       };
 
       const newMediaExpert = await registerMediaExpert(media_expert);
 
       if (newMediaExpert) {
-        if (values.joinTeam === "yes") {
-          router.push(`/mediaExperts/${user.$id}/team`);
-        } else {
-          router.push(`/mediaExperts/${user.$id}/admin`);
-        }
+        router.push("/login");
       }
     } catch (error) {
       console.log(error);
@@ -188,24 +182,6 @@ const RegisterForm = ({ user }: { user: User }) => {
               </FormControl>
             )}
           />
-
-          <div className="space-y-4">
-            <h2 className="sub-header">Do you want to join the team?</h2>
-            <RadioGroup
-              className="flex flex-col gap-2"
-              value={form.watch("joinTeam")}
-              onValueChange={(value) => form.setValue("joinTeam", value as joinTeam)}
-            >
-              <div className="flex items-center">
-              <RadioGroupItem value="yes" id="yes" />
-              <label htmlFor="yes" className="ml-2">I&apos;d love to!</label>
-            </div>
-            <div className="flex items-center">
-              <RadioGroupItem value="no" id="no" />
-              <label htmlFor="no" className="ml-2">Not at the moment</label>
-            </div>
-            </RadioGroup>
-          </div>
         </section>
 
         <SubmitButton isLoading={isLoading}>Submit and Continue</SubmitButton>

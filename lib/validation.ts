@@ -3,7 +3,7 @@ import { z } from "zod";
 export const PasswordSchema = z.object({
   password: z.string()
     .min(6, "Password must be at least 6 characters long")
-    .max(20, "Passkey must be at most 20 characters long")
+    .max(50, "Passkey must be at most 50 characters long")
     .regex(/[a-z]/, "Password must contain at least one lowercase letter")
     .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
     .regex(/[0-9]/, "Password must contain at least one number")
@@ -44,8 +44,7 @@ const CourseBaseSchema = z.object({
 });
 
 export const MediaExpertSchema = MediaExpertBaseSchema.extend({
-  courses: z.array(CourseBaseSchema).optional(),
-  joinTeam: z.enum(["yes", "no"]),
+  courses: z.array(CourseBaseSchema).optional()
 });
 
 export const CourseSchema = CourseBaseSchema.extend({

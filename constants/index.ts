@@ -1,4 +1,4 @@
-import { joinTeam, Type } from "../types/appwrite.types";
+import { Type } from "../types/appwrite.types";
 
 export const MediaExpertFormDefaultValues = {
   name: "",
@@ -9,7 +9,6 @@ export const MediaExpertFormDefaultValues = {
   specialization: "",
   identificationType: "ID Card",
   identificationDocument: [],
-  joinTeam: joinTeam.No, 
 }
 
 export const IdentificationTypes = [

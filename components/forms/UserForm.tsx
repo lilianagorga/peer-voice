@@ -10,7 +10,6 @@ import SubmitButton from "../commons/SubmitButton";
 import { Form } from "../ui/form";
 import { createUser } from "../../lib/actions/media_expert.actions";
 import { UserSchema } from "../../lib/validation";
-import { PasswordInput } from "../PasswordInput";
 import "react-phone-number-input/style.css";
 
 export const UserForm = () => {
@@ -66,7 +65,7 @@ export const UserForm = () => {
           control={form.control}
           name="name"
           label="Full name"
-          placeholder="John Doe"
+          placeholder="Mario Rossi"
           iconSrc="/assets/icons/user.svg"
           iconAlt="user"
         />
@@ -76,7 +75,7 @@ export const UserForm = () => {
           control={form.control}
           name="email"
           label="Email"
-          placeholder="johndoe@gmail.com"
+          placeholder="mariorossi@gmail.com"
           iconSrc="/assets/icons/email.svg"
           iconAlt="email"
         />
@@ -89,17 +88,17 @@ export const UserForm = () => {
           placeholder="(339) 123-4567"
         />
 
-        <div>
-          <label htmlFor="password" className="block text-sm font-medium text-dark-700">
-            Password
-          </label>
-          <PasswordInput
-            maxLength={20}
-            minLength={6}
-            value={form.watch("password")}
-            onChange={(value) => form.setValue("password", value)}
-          />
-        </div>
+        <CustomFormField
+          fieldType={FormFieldType.PASSWORD_INPUT}
+          control={form.control}
+          name="password"
+          label="Password"
+          placeholder="Enter your password"
+          iconSrc="/assets/icons/lock.svg"
+          iconAlt="lock"
+          maxLength={50}
+          minLength={6}
+        />
 
         <SubmitButton isLoading={isLoading}>Get Started</SubmitButton>
       </form>

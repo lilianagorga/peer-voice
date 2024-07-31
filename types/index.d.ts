@@ -5,7 +5,6 @@ declare type SearchParamProps = {
 
 declare type Status = "pending" | "scheduled" | "cancelled";
 declare type Type = "print" | "online" | "audiovisual";
-declare type joinTeam = "yes" | "no";
 
 declare interface CreateUserParams {
   name: string;
@@ -24,7 +23,6 @@ declare interface RegisterUserParams extends CreateUserParams {
   bio?: string;
   specialization?: string;
   course?: ICourse[];
-  joinTeam: joinTeam;
 }
 
 declare interface IMediaExpert extends RegisterUserParams {
