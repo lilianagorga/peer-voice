@@ -6,8 +6,8 @@ import { useAuth } from "../../context/AuthContext";
 import { useForm, FormProvider } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { PasskeySchema } from "../../lib/validation";
-import { PasskeyInput } from "../../components/PasskeyInput";
+import { PasswordSchema } from "../../lib/validation";
+import { PasswordInput } from "../../components/PasswordInput";
 import { RadioGroup } from "@radix-ui/react-radio-group";
 
 const LoginPage = () => {
@@ -16,16 +16,16 @@ const LoginPage = () => {
   const [destination, setDestination] = useState("admin");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const form = useForm<z.infer<typeof PasskeySchema>>({
-    resolver: zodResolver(PasskeySchema),
+  const form = useForm<z.infer<typeof PasswordSchema>>({
+    resolver: zodResolver(PasswordSchema),
     defaultValues: {
-      passkey: "",
+      password: "",
     },
   });
 
-  const handleLogin = async (values: z.infer<typeof PasskeySchema>) => {
-    if (values.passkey) {
-      const response = await fetch(`/api/verifyPasskey?passkey=${values.passkey}`);
+  const handleLogin = async (values: z.infer<typeof PasswordSchema>) => {
+    if (values.password) {
+      const response = await fetch(`/api/verifyPassword?password=${values.password}`);
       const data = await response.json();
 
       if (data.userId) {
@@ -37,10 +37,10 @@ const LoginPage = () => {
           router.push(`/mediaExperts/${data.userId}/team`);
         }
       } else {
-        setErrorMessage("Invalid passkey");
+        setErrorMessage("Invalid password");
       }
     } else {
-      setErrorMessage("Please enter your passkey");
+      setErrorMessage("Please enter your password");
     }
   };
 
@@ -56,14 +56,14 @@ const LoginPage = () => {
         <FormProvider {...form}>
           <form onSubmit={form.handleSubmit(handleLogin)} className="space-y-6">
             <div className="flex flex-col items-center">
-              <label htmlFor="passkey" className="block text-lg font-bold text-dark-700 mb-2">
-                Passkey
+              <label htmlFor="password" className="block text-lg font-bold text-dark-700 mb-2">
+                Password
               </label>
-              <PasskeyInput
-                maxLength={15}
+              <PasswordInput
+                maxLength={20}
                 minLength={6}
-                value={form.watch("passkey")}
-                onChange={(value) => form.setValue("passkey", value)}
+                value={form.watch("password")}
+                onChange={(value) => form.setValue("password", value)}
               />
             </div>
             <div className="flex justify-center mb-6">

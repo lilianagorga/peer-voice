@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { verifyPasskey } from '../../lib/actions/media_expert.actions';
+import { verifyPassword } from '../../lib/actions/media_expert.actions';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
@@ -7,18 +7,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    const passkey = req.query.passkey as string;
+    const password = req.query.password as string;
 
-    if (!passkey) {
-      return res.status(400).json({ error: 'Passkey is required' });
+    if (!password) {
+      return res.status(400).json({ error: 'Password is required' });
     }
 
-    const userId = await verifyPasskey(passkey);
+    const userId = await verifyPassword(password);
 
     if (userId) {
       res.status(200).json({ userId });
     } else {
-      res.status(400).json({ error: 'Invalid passkey' });
+      res.status(400).json({ error: 'Invalid password' });
     }
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });

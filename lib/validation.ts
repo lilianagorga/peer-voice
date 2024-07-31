@@ -1,20 +1,20 @@
 import { z } from "zod";
 
-export const PasskeySchema = z.object({
-  passkey: z.string()
-    .min(6, "Passkey must be at least 6 characters long")
-    .max(15, "Passkey must be at most 20 characters long")
-    .regex(/[a-z]/, "Passkey must contain at least one lowercase letter")
-    .regex(/[A-Z]/, "Passkey must contain at least one uppercase letter")
-    .regex(/[0-9]/, "Passkey must contain at least one number")
-    .regex(/[@$!%*?&]/, "Passkey must contain at least one special character"),
+export const PasswordSchema = z.object({
+  password: z.string()
+    .min(6, "Password must be at least 6 characters long")
+    .max(20, "Passkey must be at most 20 characters long")
+    .regex(/[a-z]/, "Password must contain at least one lowercase letter")
+    .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+    .regex(/[0-9]/, "Password must contain at least one number")
+    .regex(/[@$!%*?&]/, "Password must contain at least one special character"),
 })
 
 export const UserSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters").max(50, "Name must be at most 50 characters"),
   email: z.string().email("Invalid email address"),
   phone: z.string().refine((phone) => /^\+\d{10,15}$/.test(phone), "Invalid phone number"),
-  passkey: PasskeySchema.shape.passkey,
+  password: PasswordSchema.shape.password,
 });
 
 const MediaExpertBaseSchema = z.object({

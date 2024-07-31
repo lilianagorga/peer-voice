@@ -4,7 +4,7 @@ import { ID, Query, InputFile } from "node-appwrite";
 import { 
   DATABASE_ID,
   MEDIA_EXPERT_COLLECTION_ID,
-  PASSKEY_MAP_COLLECTION_ID,
+  PASSWORD_COLLECTION_ID,
   databases,
   users,
   storage,
@@ -13,18 +13,18 @@ import {
   PROJECT_ID
 } from "../appwrite.config";
 import { parseStringify } from "../utils";
-import { PasskeyMapDocument } from "../../types/appwrite.types";
+import { Password } from "../../types/appwrite.types";
 
-export const createUser = async (user: CreateUserParams, passkey: string) => {
+export const createUser = async (user: CreateUserParams, password: string) => {
   try {
-    const existingPasskeyMapping = await databases.listDocuments(
+    const existingPassword = await databases.listDocuments(
       DATABASE_ID!,
-      PASSKEY_MAP_COLLECTION_ID!,
-      [Query.equal("passkey", [passkey])]
+      PASSWORD_COLLECTION_ID!,
+      [Query.equal("password", [password])]
     );
 
-    if (existingPasskeyMapping.documents.length > 0) {
-      return { error: 'Passkey already in use. Please choose a different passkey.' };
+    if (existingPassword.documents.length > 0) {
+      return { error: 'Password already in use. Please choose a different password.' };
     }
     
     const newuser = await users.create(
@@ -37,9 +37,9 @@ export const createUser = async (user: CreateUserParams, passkey: string) => {
 
     await databases.createDocument(
       DATABASE_ID!,
-      PASSKEY_MAP_COLLECTION_ID!,
+      PASSWORD_COLLECTION_ID!,
       ID.unique(),
-      { passkey, userId: newuser.$id }
+      { password, userId: newuser.$id }
     );
     return parseStringify(newuser);
   } catch (error: any) {
@@ -55,23 +55,23 @@ export const createUser = async (user: CreateUserParams, passkey: string) => {
 };
 
 
-export const verifyPasskey = async (passkey: string) => {
+export const verifyPassword = async (password: string) => {
   try {
-    const passkeyMapping = await databases.listDocuments(
+    const passwordMapping = await databases.listDocuments(
       DATABASE_ID!,
-      PASSKEY_MAP_COLLECTION_ID!,
-      [Query.equal("passkey", [passkey])]
+      PASSWORD_COLLECTION_ID!,
+      [Query.equal("password", [password])]
     );
 
-    if (passkeyMapping.documents.length === 0) {
+    if (passwordMapping.documents.length === 0) {
       return null;
     }
 
-    const document = passkeyMapping.documents[0] as unknown as PasskeyMapDocument;
+    const document = passwordMapping.documents[0] as unknown as Password;
     const { userId } = document;
     return userId;
   } catch (error) {
-    console.error("An error occurred while verifying the passkey:", error);
+    console.error("An error occurred while verifying the password:", error);
     return null;
   }
 };
