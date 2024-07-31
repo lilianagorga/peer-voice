@@ -19,8 +19,7 @@ const Navbar: React.FC = () => {
       <li><Link href="/" className="font-bold">Home</Link></li>
         {userId ? (
           <>
-            <li><Link href={`/mediaExperts/${userId}/admin`} className="font-bold">Admin</Link></li>
-            <li><Link href={`/mediaExperts/${userId}/team`} className="font-bold">Team</Link></li>
+            <li><Link href={`/mediaExperts/${userId}/dashboard`} className="font-bold">Dashboard</Link></li>
             <li><button onClick={handleLogout} className="text-white font-bold">Logout</button></li>
           </>
         ) : (

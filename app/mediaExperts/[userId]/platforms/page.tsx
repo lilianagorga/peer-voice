@@ -7,7 +7,7 @@ const PlatformPage = ({ params, searchParams }: { params: { userId: string; cour
     title="Platform Added Successfully"
     description="Platform has been successfully added."
     buttonText="Go to Dashboard"
-    buttonLink={`/mediaExperts/${params.userId}/team`}
+    buttonLink={`/mediaExperts/${params.userId}/dashboard`}
   />
   );
 };

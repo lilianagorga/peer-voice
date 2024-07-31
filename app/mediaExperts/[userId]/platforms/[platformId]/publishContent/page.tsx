@@ -6,7 +6,7 @@ const PublishContentPage = ({ params }: { params: { userId: string; platformId: 
       title="Content Published Successfully"
       description="Content has been successfully published."
       buttonText="Go to Dashboard"
-      buttonLink={`/mediaExperts/${params.userId}/team`}
+      buttonLink={`/mediaExperts/${params.userId}/dashboard`}
     />
   );
 };
