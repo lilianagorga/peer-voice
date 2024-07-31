@@ -6,7 +6,7 @@ const CoursesPage = ({ params, searchParams }: { params: { userId: string; cours
     title="Course Added Successfully"
     description="Course has been successfully added."
     buttonText="Go to Dashboard"
-    buttonLink={`/mediaExperts/${params.userId}/team`}
+    buttonLink={`/mediaExperts/${params.userId}/dashboard`}
   />
   );
 };
