@@ -18,8 +18,8 @@ Peer Voice is a platform dedicated to raising awareness about gender equality th
 
 ## Features
 
-- **User Registration**: Users can register with a unique passkey, which represents their userId. This allows easy association of the user with their data and access to platform functionalities.
-- **Login**: Users can log in using the passkey.
+- **User Registration**: Users can register with a unique password, which represents their userId. This allows easy association of the user with their data and access to platform functionalities.
+- **Login**: Users can log in using the password.
 - **Course Joining**: Media experts can join existing courses on their admin page.
 - **Adding Participants to Courses**: Media experts can add other registered experts on the platform to existing courses.
 - **Content Publishing**: Media experts can publish content on various platforms. This process involves choosing an existing platform and selecting the expert who created the content, followed by uploading the content itself.
@@ -82,7 +82,7 @@ Peer Voice is a platform dedicated to raising awareness about gender equality th
   - **validation.ts**: Contains validation schemas for forms using Zod.
 
 - **pages/api/**: Contains API endpoints that handle backend requests.
-  - **verifyPasskey.ts**: Endpoint to verify the passkey.
+  - **verifyPassword.ts**: Endpoint to verify the password.
 
 - **types/**: Contains TypeScript type definitions.
   - **appwrite.types.ts**: Types for Appwrite.
@@ -111,7 +111,7 @@ Peer Voice is a platform dedicated to raising awareness about gender equality th
   COURSE_COLLECTION_ID=<ID courses collection>
   MEDIA_EXPERT_COLLECTION_ID=<ID media expert collection>
   PLATFORM_COLLECTION_ID=<ID platforms collection>
-  PASSKEY_MAP_COLLECTION_ID=<ID passkey collection>
+  PASSWORD_COLLECTION_ID=<ID password collection>
   COURSE_JOINED_COLLECTION_ID=<ID joined courses collection>
   BUCKET_ID=<ID bucket for Appwrite storage>
   ```
@@ -128,7 +128,7 @@ Peer Voice is a platform dedicated to raising awareness about gender equality th
       COURSE_COLLECTION_ID,
       MEDIA_EXPERT_COLLECTION_ID,
       PLATFORM_COLLECTION_ID,
-      PASSKEY_MAP_COLLECTION_ID,
+      PASSWORD_COLLECTION_ID,
       COURSE_JOINED_COLLECTION_ID,
       BUCKET_ID,
     } = process.env;
@@ -144,8 +144,8 @@ Peer Voice is a platform dedicated to raising awareness about gender equality th
     ```bash
     import { Models } from "node-appwrite";
 
-    export interface PasskeyMapDocument extends Models.Document {
-      passkey: string;
+    export interface Password extends Models.Document {
+      password: string;
       userId: string;
     }
 
@@ -221,7 +221,7 @@ Peer Voice is a platform dedicated to raising awareness about gender equality th
   COURSE_COLLECTION_ID=<ID courses collection>
   MEDIA_EXPERT_COLLECTION_ID=<ID media expert collection>
   PLATFORM_COLLECTION_ID=<ID platforms collection>
-  PASSKEY_MAP_COLLECTION_ID=<ID passkey collection>
+  PASSWORD_COLLECTION_ID=<ID password collection>
   COURSE_JOINED_COLLECTION_ID=<ID joined courses collection>
   BUCKET_ID=<ID bucket for Appwrite storage>
   ```

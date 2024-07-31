@@ -1,7 +1,7 @@
 import { Models } from "node-appwrite";
 
-export interface PasskeyMapDocument extends Models.Document {
-  passkey: string;
+export interface Password extends Models.Document {
+  password: string;
   userId: string;
 }
 

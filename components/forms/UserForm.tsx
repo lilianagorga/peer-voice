@@ -10,7 +10,7 @@ import SubmitButton from "../commons/SubmitButton";
 import { Form } from "../ui/form";
 import { createUser } from "../../lib/actions/media_expert.actions";
 import { UserSchema } from "../../lib/validation";
-import { PasskeyInput } from "../PasskeyInput";
+import { PasswordInput } from "../PasswordInput";
 import "react-phone-number-input/style.css";
 
 export const UserForm = () => {
@@ -24,7 +24,7 @@ export const UserForm = () => {
       name: "",
       email: "",
       phone: "",
-      passkey: "",
+      password: "",
     },
   });
 
@@ -39,7 +39,7 @@ export const UserForm = () => {
         phone: values.phone,
       };
 
-      const newUser = await createUser(user, values.passkey);
+      const newUser = await createUser(user, values.password);
       if (newUser && newUser.error) {
         setErrorMessage(newUser.error);
       } else if (newUser && newUser.$id) {
@@ -90,14 +90,14 @@ export const UserForm = () => {
         />
 
         <div>
-          <label htmlFor="passkey" className="block text-sm font-medium text-dark-700">
-            Passkey
+          <label htmlFor="password" className="block text-sm font-medium text-dark-700">
+            Password
           </label>
-          <PasskeyInput
-            maxLength={15}
+          <PasswordInput
+            maxLength={20}
             minLength={6}
-            value={form.watch("passkey")}
-            onChange={(value) => form.setValue("passkey", value)}
+            value={form.watch("password")}
+            onChange={(value) => form.setValue("password", value)}
           />
         </div>
 

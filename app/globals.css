@@ -202,7 +202,7 @@
     @apply overflow-hidden border-transparent w-full placeholder:text-dark-600  h-11 text-14-medium rounded-md px-3 outline-none !important;
   }
 
-  .passkey-container {
+  .password-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: start;
@@ -210,7 +210,7 @@
     padding-left: 1.5rem;
   }
 
-  .passkey-slot {
+  .password-slot {
     width: 2.5rem;
     height: 2.5rem;
     text-align: center;
@@ -221,14 +221,14 @@
   }
 
   @media (max-width: 768px) {
-    .passkey-slot {
+    .password-slot {
       width: 2rem;
       height: 2rem;
     }
   }
 
   @media (max-width: 640px) {
-    .passkey-slot {
+    .password-slot {
       width: 1.5rem;
       height: 1.5rem;
     }
