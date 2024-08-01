@@ -20,21 +20,21 @@ Peer Voice is a platform dedicated to raising awareness about gender equality th
 
 - **User Registration**: Users can register with a unique password, which represents their userId. This allows easy association of the user with their data and access to platform functionalities.
 - **Login**: Users can log in using the password.
-- **Course Joining**: Media experts can join existing courses on their admin page.
+- **Course Joining**: Media experts can join existing courses.
 - **Adding Participants to Courses**: Media experts can add other registered experts on the platform to existing courses.
 - **Content Publishing**: Media experts can publish content on various platforms. This process involves choosing an existing platform and selecting the expert who created the content, followed by uploading the content itself.
 - **Platform Management**: Media experts can create platforms and upload their content simultaneously.
 - **Dashboard**:
-  - **Admin Dashboard**: Provides an up-to-date overview of the status of courses the admin has joined. The table in the admin dashboard represents the status of joined courses. The "scheduled" status represents the addition of a participant. If this status changes from "scheduled" to "pending" or "cancelled," that participant will be removed.
-  - **Team Dashboard**: Provides a detailed view of the number of participants for each existing course and the number of contents for each existing platform.
+  - **Course Management**: Provides an up-to-date overview of the status of courses the user has joined. The table represents the status of joined courses. The "scheduled" status represents the addition of a participant. If this status changes from "scheduled" to "pending" or "cancelled," that participant will be removed.
+  - **Participant and Content Management**: Provides a detailed view of the number of participants for each existing course and the number of contents for each existing platform. It also includes tools to create courses, create platforms, add participants, and publish content.
 
 
 ## Project Structure
 
 - **app/**: Contains all the pages and components of the project.
   - **mediaExperts/[userId]**
-    - **admin**
-      - **page.tsx**: Admin page to join courses and manage their status.
+    - **dashboard**
+      - **page.tsx**: Dashboard page to manage courses, participants, and platform contents. Allows users to join courses, update their status, create courses, create platforms, add participants, and publish content.
     - **courses**
       - **[courseId]**
         - **addParticipant**
@@ -47,8 +47,6 @@ Peer Voice is a platform dedicated to raising awareness about gender equality th
           - **page.tsx**: Page to publish content on a platform.
     - **register**
       - **page.tsx**: Media expert registration page.
-    - **team**
-      - **page.tsx**: Team page to create courses, create platforms, add participants, and publish content.
 
 - **components/**: Contains reusable UI components.
   - **commons/**
